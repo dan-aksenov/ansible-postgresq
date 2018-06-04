@@ -4,7 +4,7 @@
   remote_user: "{{ my_ansible_user }}"
   become: yes
   roles:
-    - ansible-postgresql
+   - ansible-postgresql 
 
   environment:
     http_proxy: "{{ proxy_ip }}"
