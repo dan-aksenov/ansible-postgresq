@@ -1,0 +1,3 @@
+---
+- import_tasks: repository.yml
+  tags: 1_repository
