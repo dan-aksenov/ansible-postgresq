@@ -2,7 +2,7 @@
 inspired by github.com/galaxyproject/ansible-postgresql
 
 tags from separate roles to be moved here:
-* 1_repository,
+[*] 1_repository,
 * 2_install,
 * 3_configure,
 * archivelog_conf,
