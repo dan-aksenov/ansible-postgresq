@@ -14,7 +14,7 @@
   template: 
       src: 25ansible_postgresql.conf.j2
       dest: "{{ pg_conf }}/conf.d/25ansible_postgresql.conf"
-      owner: {{ postgresql_admin_user }}
-      group: {{ postgresql_admin_user }}
+      owner: "{{ postgresql_admin_user }}"
+      group: "{{ postgresql_admin_user }}"
       backup: yes
   notify: reload postgres
