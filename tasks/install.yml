@@ -1,0 +1,14 @@
+---
+- name: "Install PostgreSQL packages."
+  yum: 
+    state: latest
+    pkg: "{{ item }}"
+  with_items:
+    - "postgresql{{ postgresql_version | replace('.', '') }}"
+    - "postgresql{{ postgresql_version | replace('.', '') }}-server"
+    - "postgresql{{ postgresql_version | replace('.', '') }}-contrib"
+    - "postgresql{{ postgresql_version | replace('.', '') }}-libs"
+    # is devel really needed?
+    #- "postgresql{{ postgresql_version | replace('.', '') }}-devel"
+    - python-psycopg2
+    - pg_stat_kcache{{ postgresql_version | replace('.', '') }}
