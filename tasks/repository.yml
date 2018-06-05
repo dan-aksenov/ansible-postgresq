@@ -3,16 +3,18 @@
 # every time to check whether it's installed, so, don't do that.
 - name: Check pgdg repository package.
   yum: 
-    name: pgdg-{{ ansible_distribution }}{{ postgresql_version | replace('.', '') }}
+    name: pgdg-{{ ansible_distribution | lower }}{{ postgresql_version | replace('.', '') }}
   register: repo_pkg_installed
   ignore_errors: yes
 
 # There's no direct way to determine the latest pacakge, so we have to use a
 # helper script to parse the directory list and figure it out.
-- name: Determine latest pgdg repository package.
-  script: get_repo_rpm_release.py http://yum.postgresql.org/{{ postgresql_version }}/redhat/rhel-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}/ {{ ansible_distribution }}
+<<<<<<< HEAD
+- name: Determine latest pgdg repository package (RedHat).
+  script: get_repo_rpm_release.py http://yum.postgresql.org/{{ postgresql_version }}/redhat/rhel-{{ ansible_distribution_major_version }}-{{ ansible_architecture }}/ {{ ansible_distribution | lower }}
   register: pgdg_repo_pkg_name
   when: repo_pkg_installed.failed is defined and repo_pkg_installed.failed
+  delegate_to: localhost
 
 - name: Install pgdg repository package.
   yum: 
