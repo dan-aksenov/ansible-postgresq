@@ -3,8 +3,8 @@ inspired by github.com/galaxyproject/ansible-postgresql
 
 tags from separate roles to be moved here:
 - [x] 1_repository,
-- [ ] 2_install,
-- [ ] 3_configure,
+- [x] 2_install,
+- [x] 3_configure,
 - [ ] archivelog_conf,
 - [ ] mamonsu,
 - [ ] mamonsu-register,
