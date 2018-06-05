@@ -6,4 +6,7 @@
   tags: 2_install
 
 - import_tasks: initialize.yml
-  tags: 2_init
+  tags: 3_init
+
+- import_tasks: postgresql_conf.yml
+  tags: 4_config
