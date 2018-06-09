@@ -12,5 +12,5 @@ tags from separate roles to be moved here:
 - [ ] pg_extensions,
 - [ ] pg_hba_conf,
 - [ ] pg_install_tools,
-- [ ] pgbadger,
+- [x] pgbadger,
 - [ ] postgresql_conf
