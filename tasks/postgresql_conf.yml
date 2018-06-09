@@ -17,4 +17,4 @@
       owner: "{{ postgresql_admin_user }}"
       group: "{{ postgresql_admin_user }}"
       backup: yes
-  notify: reload postgres
+  notify: restart postgres
