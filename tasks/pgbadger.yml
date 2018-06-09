@@ -1,0 +1,63 @@
+---
+- name: Install pgbadger and httpd.
+  yum:
+    state: latest
+    pkg: "{{ item }}"
+  with_items:
+    - pgbadger
+    - httpd
+
+- name: Add firewall exception for http. Ignore if firewall is off.
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: yes
+  ignore_errors: yes
+    
+- name: Setup postgresql for extended logging.
+  template: 
+      src: 30postgresql_logging.conf.j2
+      dest: "{{ pg_conf }}/conf.d/30postgresql_logging.conf"
+      owner: "{{ postgresql_admin_user }}"
+      group: "{{ postgresql_admin_user }}"
+      backup: yes
+  notify: reload postgres  
+    
+- name: Start and enable httpd service.
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Create apache badger directory.
+  file:
+    path: /var/www/badger
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
+    state: directory
+    mode: 0755
+
+- name: Place config for badger site.
+  template:
+    src: http.conf
+    dest: /etc/httpd/conf.d/badger.conf
+  notify: restart httpd 
+
+- name: Put badger script for daily cron.
+  template:
+    src: badger_cron_daily.j2
+    dest: ~/badger_cron_daily.sh
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_user }}"
+    mode: 0700
+  become: yes
+  become_user: "{{ postgresql_user }}"
+
+- name: Configure cron for badger.
+  cron:
+    name: "pgbadber daily"
+    user: "{{ postgresql_user }}"
+    minute: "50"
+    hour: "23"
+    job: "~/badger_cron_daily.sh &>/tmp/pgbadger.log"
