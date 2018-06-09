@@ -1,7 +1,9 @@
 #!/bin/bash
+{% set pg_log = "log" if (postgresql_version <= 10) else "pg_log" %}
+
 echo running pgbadger parser...
-pgbadger -Z '+03' -q --retention 4 -I -O /var/www/badger/ {{ pg_data }}/pg_log/postgresql*.log
+pgbadger -Z '+03' -q --retention 4 -I -O /var/www/badger/ {{ pg_data }}/{{ pg_log }}/postgresql*.log
 echo deleting older logs...
-find {{ pg_data }}/{% set pg_log = "log" if ( {{ postgresql_version }} =< 10 ) else pg_log = "pg_log" %}/ -name 'postgresql*.log' -mtime +1 -print -delete
+find {{ pg_data }}/{{ pg_log }} -name 'postgresql*.log' -mtime +1 -print -delete
 
 
