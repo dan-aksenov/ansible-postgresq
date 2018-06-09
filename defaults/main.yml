@@ -8,6 +8,6 @@ pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
 postgresql_admin_user: postgres
 
 postgresql_conf:
-  listen_address: "*"
+  listen_addresses: "'*'"
   max_connections: 250
   shared_buffers: "{{ (ansible_memory_mb.real.total/4) |round|int }}MB"
