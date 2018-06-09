@@ -5,7 +5,7 @@ Features to be included:
 
 - [x] add repository,
 - [x] install stuff,
-- [x] initillize cluter if not exitst,
+- [x] initillize cluster if not exitst,
 - [ ] archivelog_conf,
 - [ ] mamonsu,
 - [ ] mamonsu-register in zabbix,
@@ -13,5 +13,5 @@ Features to be included:
 - [ ] pg_extensions,
 - [ ] pg_hba_conf,
 - [ ] pg_install_tools,
-- [x] pgbadger,
+- [x] config pgbadger,
 - [x] postgresql_conf
