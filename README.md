@@ -1,16 +1,17 @@
 # Ansible PostgreSQL install and serup role.
 inspired by github.com/galaxyproject/ansible-postgresql
 
-tags from separate roles to be moved here:
-- [x] 1_repository,
-- [x] 2_install,
-- [x] 3_configure,
+Features to be included:
+
+- [x] add repository,
+- [x] install stuff,
+- [x] initillize cluter if not exitst,
 - [ ] archivelog_conf,
 - [ ] mamonsu,
-- [ ] mamonsu-register,
+- [ ] mamonsu-register in zabbix,
 - [ ] pg_bouncer,
 - [ ] pg_extensions,
 - [ ] pg_hba_conf,
 - [ ] pg_install_tools,
 - [x] pgbadger,
-- [ ] postgresql_conf
+- [x] postgresql_conf
