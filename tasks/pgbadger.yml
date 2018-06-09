@@ -33,8 +33,8 @@
 - name: Create apache badger directory.
   file:
     path: /var/www/badger
-    owner: "{{ postgresql_user }}"
-    group: "{{ postgresql_user }}"
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
     state: directory
     mode: 0755
 
@@ -48,16 +48,16 @@
   template:
     src: badger_cron_daily.j2
     dest: ~/badger_cron_daily.sh
-    owner: "{{ postgresql_user }}"
-    group: "{{ postgresql_user }}"
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
     mode: 0700
   become: yes
-  become_user: "{{ postgresql_user }}"
+  become_user: "{{ postgresql_admin_user }}"
 
 - name: Configure cron for badger.
   cron:
     name: "pgbadber daily"
-    user: "{{ postgresql_user }}"
+    user: "{{ postgresql_admin_user }}"
     minute: "50"
     hour: "23"
     job: "~/badger_cron_daily.sh &>/tmp/pgbadger.log"

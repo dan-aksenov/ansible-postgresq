@@ -10,3 +10,6 @@
 
 - import_tasks: postgresql_conf.yml
   tags: 4_config
+
+- import_tasks: pgbadger.yml
+  tags: 5_pgbadger
