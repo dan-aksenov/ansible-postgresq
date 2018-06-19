@@ -4,14 +4,13 @@ inspired by github.com/galaxyproject/ansible-postgresql
 Features to be included:
 
 - [x] add repository,
-- [x] install stuff,
+- [x] install postgres packages,
 - [x] initillize cluster if not exitst,
-- [ ] archivelog_conf,
-- [ ] mamonsu,
-- [ ] mamonsu-register in zabbix,
-- [ ] pg_bouncer,
-- [x] pg_extensions,
-- [ ] pg_hba_conf,
-- [ ] pg_install_tools,
-- [x] config pgbadger,
-- [x] postgresql_conf
+- [ ] confiugre archivelog,
+- [ ] mamonsu and register in zabbix,
+- [ ] install and configure pg_bouncer,
+- [x] install usefull extensions(powa so far),
+- [ ] configure pg_hba.conf,
+- [ ] install tools,
+- [x] config for pgbadger logging and website,
+- [x] configure postgresql.conf
