@@ -10,7 +10,7 @@ Features to be included:
 - [ ] mamonsu,
 - [ ] mamonsu-register in zabbix,
 - [ ] pg_bouncer,
-- [ ] pg_extensions,
+- [x] pg_extensions,
 - [ ] pg_hba_conf,
 - [ ] pg_install_tools,
 - [x] config pgbadger,
