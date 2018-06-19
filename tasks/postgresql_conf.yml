@@ -18,3 +18,5 @@
       group: "{{ postgresql_admin_user }}"
       backup: yes
   notify: restart postgres
+
+- meta: flush_handlers
