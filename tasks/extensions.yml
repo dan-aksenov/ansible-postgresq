@@ -1,0 +1,24 @@
+---
+-name: Create POWA database.
+ postgresql_db:
+    name: powa
+
+- name: Create extensions.
+  postgresql_ext:
+    name: "{{ item }}"
+    db: postgres
+  become_user: postgres
+  with_items:
+    - pg_stat_statements
+    - btree_gist
+    - powa
+    - pg_qualstats
+    - pg_stat_kcache
+    # extension mast be installed for all dbx in cluster! how to???
+    - hypopg
+
+- name: Create POWA user.
+  postgresql_user:
+    name: powa
+    #password: 
+    role_attr_flags: SUPERUSER
