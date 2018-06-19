@@ -1,6 +1,6 @@
 ---
--name: Create POWA database.
- postgresql_db:
+- name: Create POWA database.
+  postgresql_db:
     name: powa
 
 - name: Create extensions.
