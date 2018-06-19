@@ -6,7 +6,7 @@
 - name: Create extensions.
   postgresql_ext:
     name: "{{ item }}"
-    db: postgres
+    db: powa 
   become_user: postgres
   with_items:
     - pg_stat_statements
@@ -16,6 +16,22 @@
     - pg_stat_kcache
     # extension mast be installed for all dbx in cluster! how to???
     - hypopg
+
+- name: Perform database replication sync status check
+  command: psql -t -c "select datname from pg_database where datname not like 'template%';"
+  become: true
+  become_user: postgres
+  register: database_list
+
+- debug: msg="{{ item }}"
+  with_nested: "{{ database_list.stdout_lines }}"
+
+- name: Create extension powa in databases.
+  postgresql_ext:
+    name: powa
+    db: "{{ item }}"
+  become_user: postgres
+  with_nested: "{{ database_list.stdout_lines }}"
 
 - name: Create POWA user.
   postgresql_user:
