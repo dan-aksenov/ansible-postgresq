@@ -11,3 +11,5 @@ postgresql_conf:
   listen_addresses: "'*'"
   max_connections: 250
   shared_buffers: "{{ (ansible_memory_mb.real.total/4) |round|int }}MB"
+  shared_preload_libraries: "pg_stat_statements,powa,pg_stat_kcache,pg_qualstats"
+  pg_stat_statements.track: "all"
