@@ -18,7 +18,7 @@
     #- hypopg
 
 - name: Perform database replication sync status check
-  command: psql -t -c "select datname from pg_database where datname not like 'template%';"
+  command: psql -t -c "select datname from pg_database where datname <> 'template0';"
   become: true
   become_user: postgres
   register: database_list

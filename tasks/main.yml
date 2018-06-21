@@ -16,3 +16,6 @@
 
 - import_tasks: pgbadger.yml
   tags: 6_pgbadger
+
+- import_tasks: tools.yml
+  tags: 7_tools
