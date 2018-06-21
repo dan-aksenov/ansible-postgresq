@@ -17,15 +17,11 @@
     # extension mast be installed for all dbx in cluster! how to???
     #- hypopg
 
-- name: Perform database replication sync status check
+- name: Get databases list
   command: psql -t -c "select datname from pg_database where datname <> 'template0';"
   become: true
   become_user: postgres
   register: database_list
-
-- debug: msg="{{ item }}"
-#  with_items: "{{ database_list.stdout_lines }}"
-  with_nested: "{{ database_list.stdout_lines }}"
 
 - name: Create extension powa in databases.
   postgresql_ext:
