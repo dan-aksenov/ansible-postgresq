@@ -13,3 +13,6 @@
   service: 
     name: postgresql-{{ postgresql_version }} 
     state: restarted
+
+- name: restart mamonsu
+  service: name=mamonsu state=restarted

@@ -1,0 +1,87 @@
+---
+# Temporary solution. Need to fix this in later revision.
+#- name: Set zabbix-agent name. If no domain name defined.
+#  set_fact:
+#     agent_name: "{{ inventory_hostname }}"   
+#     when: ansible_dns.search[0] is undefined
+
+#- name: Set zabbix-agent name. If domain name defined.
+#  set_fact:
+#     agent_name: "{{ inventory_hostname }}.{{ ansible_dns.search[0] }}"   
+#     when: ansible_dns.search[0] is defined
+#  ignore_errors: True
+
+- name: Install mamonsu repository from package.cloud.io
+  get_url: 
+    url: https://packagecloud.io/install/repositories/postgrespro/mamonsu/script.rpm.sh
+    dest: /tmp/script.rpm.sh
+    mode: 0440
+
+- command: bash /tmp/script.rpm.sh
+
+- name: Install mamonsu.
+  yum: 
+    state: latest
+    pkg: "{{ item }}"
+  with_items:
+    - mamonsu
+
+- name: Copy agent.conf template 
+  template: owner=root group=root mode=644 
+            src=mamonsu_agent.conf.j2
+            dest=/etc/mamonsu/agent.conf
+  notify:
+    - restart mamonsu
+
+# Redo user and db create with ansible postgres module
+- name: Bootstrap DDL for monitoring
+  shell: createdb mamonsu && createuser mamonsu && mamonsu bootstrap -U postgres -d mamonsu
+  become: true
+  become_user: postgres
+  ignore_errors: yes
+  notify:
+    - restart mamonsu
+
+- name: Start monitoring service.
+  service: 
+     name: mamonsu
+     state: started
+     enabled: yes
+
+- name: Install zabbix-api on ansible host.
+  local_action:
+    module: pip
+    name: zabbix-api
+  run_once: true
+ 
+- name: Import mamonsu template.
+  shell: mamonsu zabbix template export /usr/share/mamonsu/template.xml --url="{{ zabbix_url }}" --user=Admin --password=zabbix
+  run_once: true
+  ignore_errors: yes
+
+- name: Create new of update existing zabbix host. 
+  local_action:
+    module: zabbix_host
+    server_url: "{{ zabbix_url }}"
+    login_user: Admin
+    login_password: zabbix
+    host_name: "{{ agent_name }}"
+    visible_name: "{{ agent_name }}"
+    host_groups:
+      - Linux servers
+      - PostgreSQL
+      - "{{ zabbix_group }}"
+    link_templates:
+      - Template OS Linux
+      - PostgreSQL-Template
+      - PostgresPro-Linux
+    status: enabled
+    state: present
+    inventory_mode: automatic
+    interfaces:
+      - type: 1
+        main: 1
+        useip: 1
+        ip: "{{ ansible_default_ipv4.address }}"
+        dns: "{{ agent_name }}"
+        port: 10050

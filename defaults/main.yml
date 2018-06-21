@@ -13,3 +13,9 @@ postgresql_conf:
   shared_buffers: "{{ (ansible_memory_mb.real.total/4) |round|int }}MB"
   shared_preload_libraries: "'pg_stat_statements,powa,pg_stat_kcache,pg_qualstats'"
   pg_stat_statements.track: "all"
+
+# Defaults for mamonsu
+zabbix_server:
+zabbix_server_port: 10051
+# moved to template
+agent_name: "{% if ansible_dns.search is defined %}{{ inventory_hostname }}.{{ ansible_dns.search[0] }}{% else %}{{ inventory_hostname }}{% endif %}"

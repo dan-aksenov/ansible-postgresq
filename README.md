@@ -6,7 +6,7 @@ Features to be included:
 - [x] add repository,
 - [x] install postgres packages,
 - [x] initillize cluster if not exitst,
-- [ ] confiugre archivelog,
+- [ ] confiugre archivelog, and barman
 - [ ] mamonsu and register in zabbix,
 - [ ] install and configure pg_bouncer,
 - [x] install usefull extensions(powa so far),

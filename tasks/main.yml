@@ -19,3 +19,6 @@
 
 - import_tasks: tools.yml
   tags: 7_tools
+
+- import_tasks: mamonsu.yml
+  tags: 8_mamonsu
