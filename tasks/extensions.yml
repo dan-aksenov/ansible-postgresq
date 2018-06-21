@@ -17,7 +17,7 @@
     # extension mast be installed for all dbx in cluster! how to???
     #- hypopg
 
-- name: Get databases list
+- name: Get databases list.
   command: psql -t -c "select datname from pg_database where datname <> 'template0';"
   become: true
   become_user: postgres
