@@ -6,6 +6,6 @@
 
 {% if pgbouncer_conf is defined %}
 {% for opt in pgbouncer_conf %}
-{{ opt }} = {{ ppgbouncer_conf[opt] }}
+{{ opt }} = {{ pgbouncer_conf[opt] }}
 {% endfor %}
 {% endif %}
