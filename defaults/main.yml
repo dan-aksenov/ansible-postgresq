@@ -19,3 +19,10 @@ zabbix_server:
 zabbix_server_port: 10051
 # moved to template
 agent_name: "{% if ansible_dns.search is defined %}{{ inventory_hostname }}.{{ ansible_dns.search[0] }}{% else %}{{ inventory_hostname }}{% endif %}"
+
+# Defaults for pgbouncer.
+pool_mode: "transaction"
+# to make pool mode transaction work wiht trashcode
+server_reset_query_always: "1"
+ignore_startup_parameters: extra_float_digits
+max_client_conn: 300
