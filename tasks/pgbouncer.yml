@@ -14,56 +14,18 @@
       backup: yes
   notify: reload pgbouncer
 
-# redo it with conf.d file include like postgresql.conf
-#- name: Modify pgbouncer.ini listen_addr.
-#  lineinfile:
-#      dest: "/etc/pgbouncer/pgbouncer.ini"
-#      regexp: "^;?listen_addr ="
-#      line: "listen_addr = *"
-#  notify: 
-#    - reload pgbouncer
-#
-#- name: Modify pgbouncer.ini auth_type.
-#  lineinfile:
-#      dest: "/etc/pgbouncer/pgbouncer.ini"
-#      regexp: "^;?auth_type ="
-#      line: "auth_type = md5"
-#  notify: 
-#    - reload pgbouncer
-#
-#- name: Modify pgbouncer.ini pool_mode.
-#  lineinfile:
-#      dest: "/etc/pgbouncer/pgbouncer.ini"
-#      regexp: "^;?pool_mode ="
-#      line: "pool_mode = {{ pool_mode }}"
-#  notify: 
-#    - reload pgbouncer
-#
-#- name: Modify pgbouncer.ini server_reset_query_always.
-#  lineinfile:
-#      dest: "/etc/pgbouncer/pgbouncer.ini"
-#      regexp: "^;?server_reset_query_always ="
-#      line: "server_reset_query_always = {{ server_reset_query_always }}"
-#  notify: 
-#    - reload pgbouncer
-#
-#- name: Modify pgbouncer.ini ignore_startup_parameters.
-#  lineinfile:
-#      dest: "/etc/pgbouncer/pgbouncer.ini"
-#      regexp: "^;?ignore_startup_parameters ="
-#      line: "ignore_startup_parameters = {{ ignore_startup_parameters }}"
-#  notify: 
-#    - reload pgbouncer
-#
-#- name: Modify pgbouncer.ini max_client_conn.
-#  lineinfile:
-#      dest: "/etc/pgbouncer/pgbouncer.ini"
-#      regexp: "^;?max_client_conn ="
-#      line: "max_client_conn = {{ max_client_conn }}"
-#  notify: 
-#    - reload pgbouncer
-#
-- name: Copy pgbouncer.ini template 
+- name: Insert reminder to pgbouncer.ini.
+  blockinfile  :
+    dest: "/etc/pgbouncer/pgbouncer.ini"
+    insertbefore: BOF
+    marker: ;######################################################################################
+    block: |
+      ;
+      ; pbouncer configuration is manager by ansible
+      ; included /etc/pgbouncer/pgbouncer-ansible.ini takes presidence over this file!
+      ;
+
+- name: Copy pgbouncer.ini template. 
   template: owner=root group=root mode=644 
             src=pgbouncer.ini.j2
             dest=/etc/pgbouncer/pgbouncer-ansible.ini
