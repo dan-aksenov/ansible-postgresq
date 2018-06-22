@@ -1,7 +1,11 @@
-; created by ansible
+##
+## This file is maintained by Ansible - CHANGES WILL BE OVERWRITTEN
+##
+## After changing this file restart handler will be notified!
+## 
 
-;      regexp: "^;?listen_addr ="
-;      line: "auth_type = md5"
-;      line: "pool_mode = {{ pool_mode }}"
-;      line: "server_reset_query_always = {{ server_reset_query_always }}"
-;      regexp: "^;?max_client_conn ="
+{% if pgbouncer_conf is defined %}
+{% for opt in pgbouncer_conf %}
+{{ opt }} = {{ ppgbouncer_conf[opt] }}
+{% endfor %}
+{% endif %}
