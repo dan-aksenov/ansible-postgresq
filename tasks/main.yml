@@ -15,7 +15,7 @@
   tags: 5_extensions
 
 - import_tasks: pgbouncer.yml
-  tags: 6_extensions
+  tags: 6_pgbouncer
 
 - import_tasks: pgbadger.yml
   tags: 7_pgbadger
