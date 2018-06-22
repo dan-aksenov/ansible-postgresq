@@ -6,10 +6,11 @@ postgresql_version:
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
 postgresql_admin_user: postgres
+postgresql_port: 5432 
 
 postgresql_conf:
   listen_addresses: "'*'"
-  port: "{{ postgresql_port | default('5432') }}"
+  port: "{{ postgresql_port }}"
   max_connections: 250
   shared_buffers: "{{ (ansible_memory_mb.real.total/4) |round|int }}MB"
   shared_preload_libraries: "'pg_stat_statements,powa,pg_stat_kcache,pg_qualstats'"
