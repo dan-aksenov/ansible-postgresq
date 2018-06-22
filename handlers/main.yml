@@ -16,3 +16,6 @@
 
 - name: restart mamonsu
   service: name=mamonsu state=restarted
+
+- name: reload pgbouncer 
+  service: name=pgbouncer state=reloaded
