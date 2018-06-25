@@ -19,4 +19,13 @@
       backup: yes
   notify: restart postgres
 
+- name: Create directory for archivelogs. 
+  file:
+    path: "{{ archivelog_dir }}"
+    state: directory
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    mode: 0755
+  when: archivelog_dir is defined
+
 - meta: flush_handlers

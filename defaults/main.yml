@@ -15,6 +15,16 @@ postgresql_conf:
   shared_buffers: "{{ (ansible_memory_mb.real.total/4) |round|int }}MB"
   shared_preload_libraries: "'pg_stat_statements,powa,pg_stat_kcache,pg_qualstats'"
   pg_stat_statements.track: "all"
+  # compression enabled
+  archive_command: "'gzip < %p > {{ archivelog_dir }}/%f'"
+  #archive_command: 'cp -i %p /home/postgres/pg_archive/%f'
+  max_wal_senders: "10"
+  # replica is default in 10 so ommited here.
+  #wal_level: 'replica'
+  hot_standby: "on"
+  archive_mode: "on"
+  wal_keep_segments: "5000"
+  wal_log_hints: "on"
 
 # Defaults for mamonsu
 zabbix_server:
@@ -32,3 +42,6 @@ pgbouncer_conf:
   max_client_conn: "300"
   server_reset_query_always: "1"
   listen_port: "{{pgbouncer_port}}"
+
+# archivelog directory. to be modified
+archivelog_dir: /var/lib/pgsql/{{ postgresql_version }}/backups/arch

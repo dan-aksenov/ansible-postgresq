@@ -12,16 +12,16 @@
   tags: 4_config
 
 - import_tasks: extensions.yml
-  tags: 5_extensions
+  tags: extensions
 
 - import_tasks: pgbouncer.yml
-  tags: 6_pgbouncer
+  tags: pgbouncer
 
 - import_tasks: pgbadger.yml
-  tags: 7_pgbadger
+  tags: pgbadger
 
 - import_tasks: tools.yml
-  tags: 8_tools
+  tags: tools
 
 - import_tasks: mamonsu.yml
-  tags: 9_mamonsu
+  tags: mamonsu
