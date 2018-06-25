@@ -11,8 +11,8 @@
 - import_tasks: postgresql_conf.yml
   tags: 4_config
 
-- import_tasks: pg_hba_conf.yml
-  tags: 5_security
+#- import_tasks: pg_hba_conf.yml
+#  tags: 5_security
 
 - import_tasks: extensions.yml
   tags: extensions
