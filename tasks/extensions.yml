@@ -2,6 +2,7 @@
 - name: Create POWA database.
   postgresql_db:
     name: powa
+    state: present
     port: "{{ postgresql_port }}"
 
 - name: Create extensions.

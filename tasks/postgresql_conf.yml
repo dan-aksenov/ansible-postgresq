@@ -2,13 +2,22 @@
 - name: Create conf.d
   file: path={{ pg_conf }}/conf.d state=directory owner=postgres group=postgres
 
+- name: Create directory for archivelogs. 
+  file:
+    path: "{{ archivelog_dir }}"
+    state: directory
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    mode: 0755
+  when: archivelog_dir is defined
+
 - name: Set conf.d include in postgresql.conf
   lineinfile: 
       regexp: "^#?include_dir" 
       line: "include_dir = 'conf.d'"
       dest: "{{ pg_conf }}/postgresql.conf"
       backup: yes
-  notify: reload postgres
+  notify: restart postgres
 
 - name: Set config options.
   template: 
@@ -18,14 +27,5 @@
       group: "{{ postgresql_admin_user }}"
       backup: yes
   notify: restart postgres
-
-- name: Create directory for archivelogs. 
-  file:
-    path: "{{ archivelog_dir }}"
-    state: directory
-    owner: "{{ postgresql_admin_user }}"
-    group: "{{ postgresql_admin_user }}"
-    mode: 0755
-  when: archivelog_dir is defined
 
 - meta: flush_handlers
