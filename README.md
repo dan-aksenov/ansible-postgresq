@@ -8,12 +8,13 @@ Features to be included:
 
 - [x] Add repository,
 - [x] Install postgres packages,
-- [x] Initillize cluster if not exitst,
+- [x] Initillize cluster if not exists,
+   - [ ] Create default roles and databases,
 - [x] Confiugre archivelog,
 - [ ] Configure for barman,
 - [x] Mamonsu and register in zabbix, still need bootstrap and template import fix,
 - [x] Install and configure pg_bouncer, 
-   - [ ] Users and passwords...
+   - [ ] Setup users and passwords. Get passwords dynamically from pg_shadow?
 - [x] Install usefull extensions(powa so far),
 - [ ] Configure pg_hba.conf,
 - [x] Install tools,
