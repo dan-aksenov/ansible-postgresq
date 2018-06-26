@@ -5,6 +5,7 @@
 ## 
 
 {% if databases is defined %}
+[databases]
 {% for database in databases %}
 {{ database }} = host=127.0.0.1 port={{ postgresql_port }} dbname={{ database }}
 {% endfor %}
