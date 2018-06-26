@@ -4,6 +4,12 @@
 ## After changing this file restart handler will be notified!
 ## 
 
+{% if databases is defined %}
+{% for database in databases %}
+{{ database }} = host=127.0.0.1 port={{ postgresql_port }} dbname={{ database }}
+{% endfor %}
+{% endif %}
+
 {% if pgbouncer_conf is defined %}
 {% for opt in pgbouncer_conf %}
 {{ opt }} = {{ pgbouncer_conf[opt] }}

@@ -8,6 +8,9 @@ pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
 postgresql_admin_user: postgres
 postgresql_port: 5432 
 
+databases:
+  - postgres
+
 postgresql_conf:
   listen_addresses: "'*'"
   port: "{{ postgresql_port }}"
