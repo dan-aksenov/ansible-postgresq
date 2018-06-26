@@ -15,7 +15,8 @@ Features to be included:
 - [x] Mamonsu and register in zabbix, still need bootstrap and template import fix,
 - [x] Install and configure pg_bouncer, 
    - [ ] Setup users and passwords. Get passwords dynamically from pg_shadow?
-- [x] Install usefull extensions(powa so far),
+- [ ] Install usefull extensions,
+   - [x] powa
 - [ ] Configure pg_hba.conf,
 - [x] Install tools,
 - [x] Config for pgbadger logging and website,
