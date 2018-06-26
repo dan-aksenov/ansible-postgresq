@@ -12,7 +12,8 @@ Features to be included:
 - [x] Confiugre archivelog,
 - [ ] Configure for barman,
 - [x] Mamonsu and register in zabbix, still need bootstrap and template import fix,
-- [x] Install and configure pg_bouncer,
+- [x] Install and configure pg_bouncer, 
+   - [ ] Users and passwords...
 - [x] Install usefull extensions(powa so far),
 - [ ] Configure pg_hba.conf,
 - [x] Install tools,
