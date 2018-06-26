@@ -11,6 +11,10 @@ postgresql_port: 5432
 databases:
   - postgres
 
+db_users:
+  - username: postgres
+    password: invalid
+
 postgresql_conf:
   listen_addresses: "'*'"
   port: "{{ postgresql_port }}"

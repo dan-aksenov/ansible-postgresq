@@ -32,6 +32,13 @@
   notify:
     - reload pgbouncer
 
+- name: Copy pgbouncer.ini template. 
+  template: owner=root group=root mode=644 
+            src=userlist.txt.j2
+            dest=/etc/pgbouncer/userlist.txt
+  notify:
+    - reload pgbouncer
+
 - name: Add firewall exception. If firewall is on.
   firewalld: port={{ pgbouncer_port }}/tcp permanent=true state=enabled immediate=yes
   ignore_errors: yes
