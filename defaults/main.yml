@@ -1,20 +1,24 @@
 ---
 # Basic settings
 el_version: 7
-postgresql_version:
+postgresql_version: 10
 
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
+archivelog_dir: /var/lib/pgsql/{{ postgresql_version }}/backups/arch
 postgresql_admin_user: postgres
 postgresql_port: 5432 
 
+# List of databases to be precreated.
 databases:
   - postgres
 
+# List of precreated users.
 db_users:
   - username: postgres
     password: invalid
 
+# Postgresql.conf defaults
 postgresql_conf:
   listen_addresses: "'*'"
   port: "{{ postgresql_port }}"
@@ -50,5 +54,3 @@ pgbouncer_conf:
   server_reset_query_always: "1"
   listen_port: "{{pgbouncer_port}}"
 
-# archivelog directory. to be modified
-archivelog_dir: /var/lib/pgsql/{{ postgresql_version }}/backups/arch
