@@ -40,3 +40,11 @@
     #password: 
     role_attr_flags: SUPERUSER
     port: "{{ postgresql_port }}"
+
+- name: Set powa-web config.
+  template: 
+      src: powa-web.conf.j2
+      dest: "/etc/powa-web.conf"
+      owner: "{{ postgresql_admin_user }}"
+      group: "{{ postgresql_admin_user }}"
+      backup: yes
