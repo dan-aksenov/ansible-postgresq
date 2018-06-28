@@ -16,4 +16,4 @@
     - pg_qualstats{{ postgresql_version | replace('.', '') }}
     - pg_stat_kcache{{ postgresql_version | replace('.', '') }}
     - hypopg_{{ postgresql_version | replace('.', '') }}
-    - yum install powa_{{ postgresql_version | replace('.', '') }}-web
+    - powa_{{ postgresql_version | replace('.', '') }}-web
