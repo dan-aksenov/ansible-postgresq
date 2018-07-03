@@ -10,6 +10,8 @@
     group: "{{ postgresql_admin_user }}"
     mode: 0755
   when: archivelog_dir is defined
+  # error if symlinked to nfs 
+  ignore_errors: yes
 
 - name: Set conf.d include in postgresql.conf
   lineinfile: 
