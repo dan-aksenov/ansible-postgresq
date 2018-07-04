@@ -7,17 +7,13 @@
 
 - name: Create extensions.
   postgresql_ext:
-    name: "{{ item }}"
-    db: powa 
+    name: "{{ item[1] }}"
+    db: "{{ item[0] }}"
     port: "{{ postgresql_port }}"
   become_user: postgres
-  with_items:
-    - pg_stat_statements
-    - btree_gist
-    - powa
-    - pg_qualstats
-    - pg_stat_kcache
-    # extension mast be installed for all dbx in cluster! how to???
+  with_nested:
+    - [ postgres, powa ]
+    - [ pg_stat_statements, btree_gist, powa, pg_qualstats, pg_stat_kcache, pg_buffercache ]
     #- hypopg
 
 - name: Get databases list.
