@@ -62,7 +62,6 @@
       - "{{ zabbix_group }}"
     link_templates:
       - Template OS Linux
-      - PostgreSQL-Template
       - PostgresPro-Linux
     status: enabled
     state: present
