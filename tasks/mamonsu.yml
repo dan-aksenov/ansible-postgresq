@@ -1,23 +1,12 @@
 ---
-# Temporary solution. Need to fix this in later revision.
-#- name: Set zabbix-agent name. If no domain name defined.
-#  set_fact:
-#     agent_name: "{{ inventory_hostname }}"   
-#     when: ansible_dns.search[0] is undefined
-
-#- name: Set zabbix-agent name. If domain name defined.
-#  set_fact:
-#     agent_name: "{{ inventory_hostname }}.{{ ansible_dns.search[0] }}"   
-#     when: ansible_dns.search[0] is defined
-#  ignore_errors: True
-
-- name: Install mamonsu repository from package.cloud.io
+- name: Download mamonsu repository script from package.cloud.io
   get_url: 
     url: https://packagecloud.io/install/repositories/postgrespro/mamonsu/script.rpm.sh
     dest: /tmp/script.rpm.sh
     mode: 0440
 
-- command: bash /tmp/script.rpm.sh
+- name: Run repo installer script
+  command: bash /tmp/script.rpm.sh
 
 - name: Install mamonsu.
   yum: 
