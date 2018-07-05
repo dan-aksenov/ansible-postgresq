@@ -3,7 +3,7 @@
 
 echo running pgbadger parser...
 pgbadger -Z '+03' -q --retention 4 -I -O /var/www/badger/ {{ pg_data }}/{{ pg_log }}/postgresql*.log
-echo deleting older logs...
-find {{ pg_data }}/{{ pg_log }} -name 'postgresql*.log' -mtime +1 -print -delete
+echo deleting logs...
+find {{ pg_data }}/{{ pg_log }} -name 'postgresql*.log' -print -delete
 
 
