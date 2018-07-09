@@ -39,14 +39,14 @@
 
 - name: reload postgres pg_ctl
   service: 
-    command: /usr/pgsql-{{ postgresql_version }}/pg_ctl reload 
+    command: /usr/pgsql-{{ postgresql_version }}/pg_ctl -D {{ pg_data }} reload 
   become: yes
   become_user: "{{ postgresql_admin_user }}"
   when: postgresql_service == "pg_ctl"
 
 - name: restart postgres pg_ctl
   service: 
-    command: /usr/pgsql-{{ postgresql_version }}/pg_ctl restart 
+    command: /usr/pgsql-{{ postgresql_version }}/pg_ctl -D {{ pg_data }} restart 
   become: yes
   become_user: "{{ postgresql_admin_user }}"
   when: postgresql_service == "pg_ctl"
