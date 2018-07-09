@@ -35,10 +35,10 @@
     name: "postgresql-{{ postgresql_version }}" 
     state: started 
     enabled: yes
-  when: postgresql_service = "systemd"
+  when: postgresql_service == "systemd"
 
 - name: Start and enable postgresql service.
   command: "/usr/pgsql-{{ postgresql_version }}/bin/pg_ctl start" 
-  when: postgresql_service = "pg_ctl"
+  when: postgresql_service == "pg_ctl"
 
 - meta: flush_handlers
