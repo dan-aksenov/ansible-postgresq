@@ -37,10 +37,19 @@
     enabled: yes
   when: postgresql_service == "systemd"
 
+#- name: Check if postgresql is runnint. For pg_ctl.
+#  command: "/usr/pgsql-{{ postgresql_version }}/bin/pg_ctl -D {{ pg_data }} status" 
+#  register: postgresql_status
+#  become: yes
+#  become_user: "{{ postgresql_admin_user }}"
+#  when: postgresql_service == "pg_ctl"
+#  ignore_errors: yes
+
 - name: Start and enable postgresql service.
   command: "/usr/pgsql-{{ postgresql_version }}/bin/pg_ctl -D {{ pg_data }} start" 
   become: yes
   become_user: "{{ postgresql_admin_user }}"
-  when: postgresql_service == "pg_ctl"
+  when: postgresql_service == "pg_ctl" 
+#and not  postgresql_status.stdout
 
 - meta: flush_handlers
