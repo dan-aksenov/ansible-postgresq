@@ -39,6 +39,8 @@
 
 - name: Start and enable postgresql service.
   command: "/usr/pgsql-{{ postgresql_version }}/bin/pg_ctl start" 
+  become: yes
+  become_user: "{{ postgresql_admin_user }}"
   when: postgresql_service == "pg_ctl"
 
 - meta: flush_handlers
