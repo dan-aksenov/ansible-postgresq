@@ -14,11 +14,13 @@
 # Use pg_ctl if postgres not namaged by systemd.
 
 - name: reload postgres
+  command: /bin/true
   notify:
     - reload postgres systemd
     - reload postgres pg_ctl
 
 - name: restart postgres
+  command: /bin/true
   notify:
     - restart postgres systemd
     - restart postgres pg_ctl
