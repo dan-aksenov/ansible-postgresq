@@ -35,6 +35,7 @@
     name: "postgresql-{{ postgresql_version }}" 
     state: started 
     enabled: yes
+  when: postgresql_
 
 - meta: flush_handlers
 
