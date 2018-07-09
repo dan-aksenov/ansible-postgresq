@@ -3,6 +3,9 @@
 el_version: 7
 postgresql_version: 10
 
+# Manage cluster with systemd or pg_ctl
+postgresql_systemd: True
+
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
 archivelog_dir: /var/lib/pgsql/{{ postgresql_version }}/backups/arch

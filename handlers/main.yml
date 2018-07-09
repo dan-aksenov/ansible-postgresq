@@ -4,18 +4,43 @@
     name: httpd
     state: restarted
 
-- name: reload postgres
-  service: 
-    name: postgresql-{{ postgresql_version }} 
-    state: reloaded
-
-- name: restart postgres
-  service: 
-    name: postgresql-{{ postgresql_version }} 
-    state: restarted
-
 - name: restart mamonsu
   service: name=mamonsu state=restarted
 
 - name: reload pgbouncer 
   service: name=pgbouncer state=reloaded
+
+# Restart and reload postgres depending on service management. 
+# Use pg_ctl if postgres not namaged by systemd.
+
+- name: reload postgres
+  notify:
+    - reload postgres systemd
+    - reload postgres pg_ctl
+
+- name: restart postgres
+  notify:
+    - restart postgres systemd
+    - restart postgres pg_ctl
+
+- name: reload postgres systemd
+  service: 
+    name: postgresql-{{ postgresql_version }} 
+    state: reloaded
+  when: postgresql_systemd == True
+
+- name: restart postgres systemd
+  service: 
+    name: postgresql-{{ postgresql_version }} 
+    state: restarted
+  when: postgresql_systemd == True
+
+- name: reload postgres pg_ctl
+  service: 
+    command: /usr/pgsql-{{ postgresql_version }}/pg_ctl reload 
+  when: postgresql_systemd == False
+
+- name: restart postgres pg_ctl
+  service: 
+    command: /usr/pgsql-{{ postgresql_version }}/pg_ctl restart 
+  when: postgresql_systemd == False
