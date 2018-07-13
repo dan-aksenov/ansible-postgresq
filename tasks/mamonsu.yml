@@ -50,11 +50,12 @@
     module: pip
     name: zabbix-api
   run_once: true
- 
-- name: Import mamonsu template.
-  shell: mamonsu zabbix template export /usr/share/mamonsu/template.xml --url="{{ zabbix_url }}" --user=Admin --password=zabbix
-  run_once: true
-  ignore_errors: yes
+
+#Right now getting HTTP Error 500: Internal Server Error. 
+#- name: Import mamonsu template.
+#  shell: mamonsu zabbix template export /usr/share/mamonsu/template.xml --url="{{ zabbix_url }}" --user=Admin --password=zabbix
+#  run_once: true
+#  ignore_errors: yes
 
 - name: Create new of update existing zabbix host. 
   local_action:
