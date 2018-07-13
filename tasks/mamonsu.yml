@@ -22,9 +22,17 @@
   notify:
     - restart mamonsu
 
-# Redo user and db create with ansible postgres module
+- name: Create Mamonsu database.
+  postgresql_db:
+    name: mamonsu
+    state: present
+    port: "{{ postgresql_port }}"
+
+- postgresql_user:
+    name: mamonsu
+
 - name: Bootstrap DDL for monitoring
-  shell: createdb mamonsu && createuser mamonsu && mamonsu bootstrap -U postgres -d mamonsu
+  shell: mamonsu bootstrap -M postgres mamonsu
   become: true
   become_user: postgres
   ignore_errors: yes
