@@ -15,11 +15,23 @@ postgresql_port: 5432
 # List of databases to be precreated.
 databases:
   - postgres
+  - powa
+  - mamonsu
 
 # List of precreated users.
 db_users:
   - username: postgres
     password: invalid
+    superuser: true
+    replication: true
+  - username: mamonsu
+    password:
+    superuser: false
+    replication: false
+  - username: powa
+    password:
+    superuser: true
+    replication: false
 
 # Postgresql.conf defaults
 postgresql_conf:
