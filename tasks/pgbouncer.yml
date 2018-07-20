@@ -17,12 +17,10 @@
   blockinfile  :
     dest: "/etc/pgbouncer/pgbouncer.ini"
     insertbefore: BOF
-    marker: ;######################################################################################
+    marker: ;;
     block: |
-      ;
-      ; pbouncer configuration is manager by ansible
-      ; included /etc/pgbouncer/pgbouncer-ansible.ini takes presidence over this file!
-      ;
+      ;; pbouncer configuration is manager by ansible
+      ;; included /etc/pgbouncer/pgbouncer-ansible.ini takes presidence over this file!
 
 - name: Copy pgbouncer.ini template. 
   template: owner=root group=root mode=644 
@@ -31,7 +29,7 @@
   notify:
     - reload pgbouncer
 
-- name: Copy pgbouncer.ini template. 
+- name: Copy userlist template. 
   template: owner=root group=root mode=644 
             src=userlist.txt.j2
             dest=/etc/pgbouncer/userlist.txt
@@ -39,7 +37,7 @@
     - reload pgbouncer
 
 - name: Add firewall exception. If firewall is on.
-  firewalld: port={{ pgbouncer_port }}/tcp permanent=true state=enabled immediate=yes
+  firewalld: port={{ pgbouncer_conf.listen_port }}/tcp permanent=true state=enabled immediate=yes
   ignore_errors: yes
 
 - name: Start pgbouncer

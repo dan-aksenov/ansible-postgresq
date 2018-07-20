@@ -60,13 +60,23 @@ zabbix_server_port: 10051
 agent_name: "{% if ansible_dns.search is defined %}{{ inventory_hostname }}.{{ ansible_dns.search[0] }}{% else %}{{ inventory_hostname }}{% endif %}"
 
 # Defaults for pgbouncer.
-pgbouncer_port: 6432
+#pgbouncer_port: 6432
 
+# Need to include all to custom config since bouncer skips main file if include provided.
 pgbouncer_conf:
   listen_addr: "0.0.0.0"
+  listen_port: 6432
   pool_mode: "transaction"
   ignore_startup_parameters: "extra_float_digits"
-  max_client_conn: "300"
   server_reset_query_always: "1"
-  listen_port: "{{pgbouncer_port}}"
+  pidfile: /var/run/pgbouncer/pgbouncer.pid
+  logfile: /var/log/pgbouncer/pgbouncer.log
+  auth_type: trust
+  auth_file: /etc/pgbouncer/userlist.txt
+  admin_users:  postgres
+  stats_users:  stats, postgres
+  pool_mode:  session
+  server_reset_query: DISCARD ALL
+  max_client_conn: "300"
+  default_pool_size: 20
 
