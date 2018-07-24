@@ -11,7 +11,7 @@ pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_backup: /var/lib/pgsql/{{ postgresql_version }}/backups
 #archivelog_dir to be trashed. gonna use pgbackrest as default backup solution.
-archivelog_dir: "{{ pg_backup }}/arch"
+#archivelog_dir: "{{ pg_backup }}/arch"
 postgresql_admin_user: postgres
 postgresql_port: 5432 
 

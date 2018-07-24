@@ -2,16 +2,16 @@
 - name: Create conf.d
   file: path={{ pg_conf }}/conf.d state=directory owner=postgres group=postgres
 
-- name: Create directory for archivelogs. 
-  file:
-    path: "{{ archivelog_dir }}"
-    state: directory
-    owner: "{{ postgresql_admin_user }}"
-    group: "{{ postgresql_admin_user }}"
-    mode: 0755
-  when: archivelog_dir is defined
-  # error if symlinked to nfs 
-  ignore_errors: yes
+#- name: Create directory for archivelogs. 
+#  file:
+#    path: "{{ archivelog_dir }}"
+#    state: directory
+#    owner: "{{ postgresql_admin_user }}"
+#    group: "{{ postgresql_admin_user }}"
+#    mode: 0755
+#  when: archivelog_dir is defined
+   #error if symlinked to nfs 
+#  ignore_errors: yes
 
 - name: Set conf.d include in postgresql.conf
   lineinfile: 
