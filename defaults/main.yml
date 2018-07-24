@@ -14,6 +14,7 @@ pg_backup: /var/lib/pgsql/{{ postgresql_version }}/backups
 #archivelog_dir: "{{ pg_backup }}/arch"
 postgresql_admin_user: postgres
 postgresql_port: 5432 
+pgbackrest_stanza: main
 
 # List of databases to be precreated.
 databases:
