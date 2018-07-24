@@ -6,6 +6,7 @@ postgresql_version: 10
 # Manage cluster with systemd or pg_ctl
 postgresql_service: systemd
 
+#pg_data mast be real directory not symlink, or pgbackrest won't work.
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_backup: /var/lib/pgsql/{{ postgresql_version }}/backups
