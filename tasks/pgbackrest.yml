@@ -15,10 +15,10 @@
 
 #- name: Set archive_command for pgBackRest. Override previous variables 
 #  set_fact:
-#    postgresql_conf: "{{ postgresql_conf|combine({'archive_command': 'pgbackrest --stanza={{ ansible_hostname }} archive-push %p'}, recursive=True) }}"
+#    postgresql_conf: "{{ postgresql_conf|combine({'archive_command': 'pgbackrest --stanza={{ pgbackrest_stanza }} archive-push %p'}, recursive=True) }}"
 
 - name: Create stanza.
-  command: pgbackrest --stanza="{{ ansible_hostname }}" --log-level-console=info stanza-create
+  command: pgbackrest --stanza="{{ pgbackrest_stanza }}" --log-level-console=info stanza-create
   become: yes
   become_user: "{{ postgresql_admin_user }}"
 
@@ -29,7 +29,7 @@
     minute: "00"
     hour: "03"
     weekday: 0
-    job: "pgbackrest --type=full --stanza={{ ansible_hostname }} backup &>/tmp/backup0.log"
+    job: "pgbackrest --type=full --stanza={{ pgbackrest_stanza }} backup &>/tmp/backup0.log"
 
 - name: Configure cron for pgBackRest diff.
   cron:
@@ -38,4 +38,4 @@
     minute: "00"
     hour: "03"
     weekday: 1-6
-    job: "pgbackrest --type=diff --stanza={{ ansible_hostname }} backup &>/tmp/backup1.log"
+    job: "pgbackrest --type=diff --stanza={{ pgbackrest_stanza }} backup &>/tmp/backup1.log"
