@@ -5,6 +5,6 @@ echo running pgbadger parser...
 pgbadger -Z '+03' -q --retention 4 -I -O /var/www/badger/ {{ pg_data }}/{{ pg_log }}/postgresql*.log
 echo deleting logs...
 #mmin 60 ensures that current log will be ratained
-find {{ pg_data }}/{{ pg_log }} -type f -name 'postgresql*.log' -mmin +60 -print -delete
+find {{ pg_data }}/{{ pg_log }}/ -type f -name 'postgresql*.log' -mmin +60 -print -delete
 
 
