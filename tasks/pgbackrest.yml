@@ -1,0 +1,36 @@
+---
+- name: "Install PostgreSQL packages."
+  yum: 
+    state: latest
+    pkg: "{{ item }}"
+  with_items:
+    - "pgbackrest"
+
+# backup path default /var/lib/pgsql/xx/backup
+
+- name: Place config for badger site.
+  template:
+    src: pgbackrest.conf.js
+    dest: /etc/pgbackrest.conf
+
+# archiving config - in defaults. presuming backrest tobe default backup mode
+
+# create stanza
+
+- name: Configure cron for pgBackRest full.
+  cron:
+    name: "pgbadber daily"
+    user: "{{ postgresql_admin_user }}"
+    minute: "00"
+    hour: "03"
+    weekday: 0
+    job: "pgbackrest --type=full --stanza=main backup &>/tmp/backup0.log"
+
+- name: Configure cron for pgBackRest diff.
+  cron:
+    name: "pgbadber daily"
+    user: "{{ postgresql_admin_user }}"
+    minute: "00"
+    hour: "03"
+    weekday: 1-6
+    job: "pgbackrest --type=diff --stanza=main backup &>/tmp/backup1.log"
