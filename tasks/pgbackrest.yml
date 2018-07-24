@@ -10,27 +10,30 @@
 
 - name: Place config for badger site.
   template:
-    src: pgbackrest.conf.js
+    src: pgbackrest.conf.j2
     dest: /etc/pgbackrest.conf
 
 # archiving config - in defaults. presuming backrest tobe default backup mode
 
-# create stanza
+- name: Create stanza.
+  command: pgbackrest --stanza="{{ ansible_hostname }}" --log-level-console=info stanza-create
+  become: yes
+  become_user: "{{ postgresql_admin_user }}"
 
 - name: Configure cron for pgBackRest full.
   cron:
-    name: "pgbadber daily"
+    name: "pgbackrest full"
     user: "{{ postgresql_admin_user }}"
     minute: "00"
     hour: "03"
     weekday: 0
-    job: "pgbackrest --type=full --stanza=main backup &>/tmp/backup0.log"
+    job: "pgbackrest --type=full --stanza={{ ansible_hostname }} backup &>/tmp/backup0.log"
 
 - name: Configure cron for pgBackRest diff.
   cron:
-    name: "pgbadber daily"
+    name: "pgbackrest diff"
     user: "{{ postgresql_admin_user }}"
     minute: "00"
     hour: "03"
     weekday: 1-6
-    job: "pgbackrest --type=diff --stanza=main backup &>/tmp/backup1.log"
+    job: "pgbackrest --type=diff --stanza={{ ansible_hostname }} backup &>/tmp/backup1.log"

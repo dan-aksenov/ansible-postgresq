@@ -17,6 +17,9 @@
 - import_tasks: extensions.yml
   tags: extensions
 
+- import_tasks: pgbackrest.yml
+  tags: pgbackrest
+
 - import_tasks: pgbouncer.yml
   tags: pgbouncer
 
