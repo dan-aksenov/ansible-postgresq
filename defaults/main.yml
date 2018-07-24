@@ -8,7 +8,9 @@ postgresql_service: systemd
 
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
-archivelog_dir: /var/lib/pgsql/{{ postgresql_version }}/backups/arch
+backup_dir: /var/lib/pgsql/{{ postgresql_version }}/backups
+#archivelog_dir to be trashed. gonna use pgbackrest as default backup solution.
+archivelog_dir: {{ backup_dir }}/arch
 postgresql_admin_user: postgres
 postgresql_port: 5432 
 
@@ -39,11 +41,11 @@ postgresql_conf:
   port: "{{ postgresql_port }}"
   max_connections: 250
   shared_buffers: "{{ (ansible_memory_mb.real.total/4) |round|int }}MB"
-#  effective_cache_size: "{{ (ansible_memory_mb.real.total }}MB"
+  effective_cache_size: "{{ (ansible_memory_mb.real.total }}MB"
   shared_preload_libraries: "'pg_stat_statements,powa,pg_stat_kcache,pg_qualstats'"
   pg_stat_statements.track: "all"
-  # compression enabled
-  archive_command: "'gzip < %p > {{ archivelog_dir }}/%f'"
+  archive_command: pgbackrest --stanza={{ ansible_hostname }} archive-push %p'
+  #archive_command: "'gzip < %p > {{ archivelog_dir }}/%f'"
   #archive_command: 'cp -i %p /home/postgres/pg_archive/%f'
   max_wal_senders: "10"
   # replica is default in 10 so ommited here.
