@@ -13,7 +13,9 @@
     src: pgbackrest.conf.j2
     dest: /etc/pgbackrest.conf
 
-# archiving config - in defaults. presuming backrest tobe default backup mode
+#- name: Set archive_command for pgBackRest. Override previous variables 
+#  set_fact:
+#    postgresql_conf: "{{ postgresql_conf|combine({'archive_command': 'pgbackrest --stanza={{ ansible_hostname }} archive-push %p'}, recursive=True) }}"
 
 - name: Create stanza.
   command: pgbackrest --stanza="{{ ansible_hostname }}" --log-level-console=info stanza-create
