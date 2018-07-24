@@ -1,5 +1,5 @@
 ---
-- name: "Install PostgreSQL packages."
+- name: "Install pgBackRest package."
   yum: 
     state: latest
     pkg: "{{ item }}"
