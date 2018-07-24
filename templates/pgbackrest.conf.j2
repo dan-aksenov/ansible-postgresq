@@ -2,7 +2,7 @@
 repo1-path={{ pg_backup }}
 repo1-retention-full=2
 
-[{{ansible_hostname}}]
+[{{ pgbackrest_stanza }}]
 pg1-path={{ pg_data }}
 
 [global:archive-push]
