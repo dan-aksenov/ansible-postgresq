@@ -2,6 +2,7 @@
 inspired by github.com/galaxyproject/ansible-postgresql
 
 Variables are optional, or provided by defaults.
+
 Designed to work no Centos7.
 
 Features to be included:
@@ -10,9 +11,12 @@ Features to be included:
 - [x] Install postgres packages,
 - [x] Initillize cluster if not exists,
    - [ ] Create default roles and databases,
-- [x] Confiugre archivelog,
-- [ ] Configure for barman,
-- [x] Mamonsu and register in zabbix, still need bootstrap and template import fix,
+- [ ] Configure backups,
+   - [x] Confiugre archivelog,
+   - [ ] backups with barman,
+   - [ ] backups with pgBackRest,
+- [x] Install Mamonsu and register in zabbix,
+   - [ ] still need bootstrap and template import fix,
 - [x] Install and configure pg_bouncer, 
    - [ ] Setup users and passwords. Get passwords dynamically from pg_shadow?
 - [ ] Install usefull extensions,
