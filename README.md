@@ -24,8 +24,10 @@ work_mem: '8MB'
 ```
 
 ## Backups
-Backups are done with pgbackrest
-Default backup path is /var/lib/pgsql/{{ postgresql_version }}/backups
+Backups are done with pgbackrest.
+
+Default backup path is `/var/lib/pgsql/{{ postgresql_version }}/backups`.
+
 For more information about pgBackRest visit https://pgbackrest.org
 
 ## Features to be included:
