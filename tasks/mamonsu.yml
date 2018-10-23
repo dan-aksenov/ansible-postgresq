@@ -22,17 +22,18 @@
   notify:
     - restart mamonsu
 
+- postgresql_user:
+    name: mamonsu
+
 - name: Create Mamonsu database.
   postgresql_db:
     name: mamonsu
     state: present
     port: "{{ postgresql_port }}"
-
-- postgresql_user:
-    name: mamonsu
+    owner: mamonsu
 
 - name: Bootstrap DDL for monitoring
-  shell: mamonsu bootstrap -M postgres mamonsu
+  shell: mamonsu bootstrap -M mamonsu mamonsu
   become: true
   become_user: postgres
   ignore_errors: yes
