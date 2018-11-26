@@ -56,6 +56,10 @@ postgresql_conf:
   archive_mode: "on"
   wal_keep_segments: "5000"
   wal_log_hints: "on"
+  max_worker_processes: "0"                
+  max_parallel_workers_per_gather: "0"    
+  max_parallel_workers: "0"              
+
 
 # Defaults for mamonsu
 zabbix_server:

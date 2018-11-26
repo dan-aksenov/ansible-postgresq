@@ -21,7 +21,7 @@
       backup: yes
   notify: restart postgres
 
-- name: Set config options.
+- name: Template configs(25ansible_postgresql.conf)
   template: 
       src: 25ansible_postgresql.conf.j2
       dest: "{{ pg_conf }}/conf.d/25ansible_postgresql.conf"
