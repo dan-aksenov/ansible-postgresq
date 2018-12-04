@@ -21,6 +21,7 @@
   become: true
   become_user: postgres
   register: database_list
+  check_mode: no
 
 - name: Create extension powa in databases.
   postgresql_ext:
