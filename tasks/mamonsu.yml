@@ -24,6 +24,7 @@
 
 - postgresql_user:
     name: mamonsu
+    port: "{{ postgresql_port }}"
 
 - name: Create Mamonsu database.
   postgresql_db:
@@ -33,7 +34,7 @@
     owner: mamonsu
 
 - name: Bootstrap DDL for monitoring
-  shell: mamonsu bootstrap -M mamonsu mamonsu
+  shell: mamonsu bootstrap -M mamonsu --port="{{ postgresql_port }}" mamonsu
   become: true
   become_user: postgres
   ignore_errors: yes
