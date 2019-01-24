@@ -14,6 +14,9 @@
 #- import_tasks: pg_hba_conf.yml
 #  tags: 5_security
 
+- import_tasks: start.yml
+  tags: 5_startdb
+
 - import_tasks: extensions.yml
   tags: extensions
 
