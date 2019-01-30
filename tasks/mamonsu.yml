@@ -1,19 +1,44 @@
 ---
-- name: Download mamonsu repository script from package.cloud.io
-  get_url: 
-    url: https://packagecloud.io/install/repositories/postgrespro/mamonsu/script.rpm.sh
-    dest: /tmp/script.rpm.sh
-    mode: 0440
+#- name: Download mamonsu repository script from package.cloud.io
+#  get_url: 
+#    url: https://packagecloud.io/install/repositories/postgrespro/mamonsu/script.rpm.sh
+#    dest: /tmp/script.rpm.sh
+#    mode: 0440
 
-- name: Run repo installer script
-  command: bash /tmp/script.rpm.sh
+#- name: Run repo installer script
+#  command: bash /tmp/script.rpm.sh
 
-- name: Install mamonsu.
-  yum: 
+#- name: Install mamonsu.
+#  yum: 
+#    state: latest
+#    pkg: "{{ item }}"
+#  with_items:
+#    - mamonsu
+
+- name: Add my ansible user.
+  user: 
+    name: mamonsu
+    comment: mamonsu monitoring user
+    createhome: yes
+    home: /var/run/mamonsu
+    shell: /sbin/nologin
+    state: present
+
+- name: Install mamonsu(pip)
+  pip:
+    name: mamonsu
     state: latest
-    pkg: "{{ item }}"
-  with_items:
-    - mamonsu
+
+- name: Copy unit from template.
+  template: owner=root group=root mode=755
+            src=mamonsu_init.j2
+            dest=/etc/init.d/mamonsu
+
+- name: Create mamonsu etc directory
+  file: path=/etc/mamonsu/plugins state=directory mode=0755
+
+- name: Create mamonsu log directory
+  file: path=/var/log/mamonsu owner=mamonsu group=mamonsu state=directory mode=0755
 
 - name: Copy agent.conf template 
   template: owner=root group=root mode=644 
@@ -43,6 +68,7 @@
 
 - name: Start monitoring service.
   service: 
+     daemon_reload: yes
      name: mamonsu
      state: started
      enabled: yes
