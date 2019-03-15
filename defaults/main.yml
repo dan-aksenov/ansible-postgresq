@@ -60,6 +60,7 @@ postgresql_conf:
   max_parallel_workers_per_gather: "0"    
   max_parallel_workers: "0"              
   checkpoint_timeout: "30min"
+  track_activity_query_size: "10240"
 
 # Defaults for mamonsu
 zabbix_server:
