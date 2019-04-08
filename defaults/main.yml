@@ -9,9 +9,7 @@ postgresql_service: systemd
 #pg_data mast be real directory not symlink, or pgbackrest won't work.
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
-pg_backup: /var/lib/pgsql/{{ postgresql_version }}/backups
-#archivelog_dir to be trashed. gonna use pgbackrest as default backup solution.
-#archivelog_dir: "{{ pg_backup }}/arch"
+pgbackrest_dir: /var/lib/pgsql/{{ postgresql_version }}/backups
 postgresql_admin_user: postgres
 postgresql_port: 5432 
 pgbackrest_stanza: "{{ ansible_hostname }}" 
@@ -46,14 +44,8 @@ postgresql_conf:
   effective_cache_size: "{{ ansible_memory_mb.real.total }}MB"
   shared_preload_libraries: "'pg_stat_statements,powa,pg_stat_kcache,pg_qualstats'"
   pg_stat_statements.track: "all"
-  archive_command: "'pgbackrest --stanza={{ ansible_hostname }} archive-push %p'"
-  #archive_command: "'gzip < %p > {{ archivelog_dir }}/%f'"
-  #archive_command: 'cp -i %p /home/postgres/pg_archive/%f'
   max_wal_senders: "10"
-  # replica is default in 10 so ommited here.
-  #wal_level: 'replica'
   hot_standby: "on"
-  archive_mode: "on"
   wal_keep_segments: "5000"
   wal_log_hints: "on"
   max_worker_processes: "0"                

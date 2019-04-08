@@ -21,6 +21,7 @@
   tags: extensions
 
 - import_tasks: pgbackrest.yml
+  when: pgbackrest_dir is defined
   tags: pgbackrest
 
 - import_tasks: pgbouncer.yml

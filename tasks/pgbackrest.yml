@@ -6,7 +6,14 @@
   with_items:
     - "pgbackrest"
 
-# backup path default /var/lib/pgsql/xx/backup
+- name: Template backrest configs(20ansible_pgbackrest.conf.j2)
+  template:
+      src: 20ansible_pgbackrest.conf.j2
+      dest: "{{ pg_conf }}/conf.d/20ansible_pgbackrest.conf"
+      owner: "{{ postgresql_admin_user }}"
+      group: "{{ postgresql_admin_user }}"
+      backup: yes
+  notify: restart postgres
 
 - name: Place config for pgBackRest.
   template:
