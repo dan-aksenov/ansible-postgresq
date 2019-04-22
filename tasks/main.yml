@@ -17,8 +17,11 @@
 - import_tasks: start.yml
   tags: 6_startdb
 
-- import_tasks: extensions.yml
-  tags: extensions
+- import_tasks: powa.yml
+  tags: powa
+
+- import_tasks: repmgr.yml
+  tags: repmgr
 
 - import_tasks: pgbackrest.yml
   when: pgbackrest_dir is defined

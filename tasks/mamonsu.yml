@@ -15,7 +15,7 @@
 #  with_items:
 #    - mamonsu
 
-- name: Add my ansible user.
+- name: Add mamonsu user.
   user: 
     name: mamonsu
     comment: mamonsu monitoring user

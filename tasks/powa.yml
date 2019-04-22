@@ -14,7 +14,6 @@
   with_nested:
     - [ postgres, powa ]
     - [ pg_stat_statements, btree_gist, powa, pg_qualstats, pg_stat_kcache, pg_buffercache ]
-    #- hypopg
 
 - name: Get databases list.
   command: psql -p "{{ postgresql_port }}" -t -c "select datname from pg_database where datname <> 'template0';"

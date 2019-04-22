@@ -9,7 +9,7 @@ postgresql_service: systemd
 #pg_data mast be real directory not symlink, or pgbackrest won't work.
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_conf: /var/lib/pgsql/{{ postgresql_version }}/data
-pgbackrest_dir: /var/lib/pgsql/{{ postgresql_version }}/backups
+pgbackrest_dir: /var/lib/pgbackrest
 postgresql_admin_user: postgres
 postgresql_port: 5432 
 pgbackrest_stanza: "{{ ansible_hostname }}" 
@@ -18,7 +18,8 @@ pgbackrest_stanza: "{{ ansible_hostname }}"
 databases:
   - postgres
   - powa
-  - mamonsu
+  - mamonsu #ownership?
+  - repmgr  #ownership?
 
 # List of precreated users.
 db_users:
@@ -34,8 +35,12 @@ db_users:
     password:
     superuser: true
     replication: false
+  - username: repmgr
+    password:
+    superuser: true
+    replication: true
 
-postgresql_extensions: [ "pg_stat_statements", "powa", "pg_stat_kcache", "pg_qualstats" ]
+postgresql_extensions: [ "pg_stat_statements", "powa", "pg_stat_kcache", "pg_qualstats", "repmgr" ]
 
 # Postgresql.conf defaults
 postgresql_conf:
