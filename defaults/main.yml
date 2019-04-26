@@ -1,7 +1,7 @@
 ---
 # Basic settings
 el_version: 7
-postgresql_version: 10
+postgresql_version: 11
 
 # Manage cluster with systemd or pg_ctl
 postgresql_service: systemd
