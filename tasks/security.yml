@@ -7,13 +7,13 @@
     immediate: true
   ignore_errors: yes
 
-#- name: Set config options.
-#  template: 
-#     src: pg_hba.conf.j2
-#      dest: "{{ pg_conf }}/pg_hba.conf"
-#      owner: "{{ postgresql_admin_user }}"
-#      group: "{{ postgresql_admin_user }}"
-#      backup: yes
-#  notify: restart postgres
-#
-#- meta: flush_handlers
+- name: Set config options.
+  template: 
+    src: pg_hba.conf.j2
+    dest: "{{ pg_conf }}/pg_hba.conf"
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    backup: yes
+  notify: restart postgres
+
+- meta: flush_handlers
