@@ -1,4 +1,4 @@
---- 
+---
 - name: Configure firewall. Ingnore if service is not running.
   firewalld:
     service: postgresql

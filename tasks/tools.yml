@@ -1,6 +1,6 @@
 ---
 - name: "Install additional postgresql tools."
-  yum: 
+  yum:
     state: latest
     pkg: "{{ item }}"
   with_items:
