@@ -4,6 +4,7 @@
     name: powa
     state: present
     port: "{{ postgresql_port }}"
+  become_user: postgres
 
 - name: Create extensions.
   postgresql_ext:
@@ -33,9 +34,9 @@
 - name: Create POWA user.
   postgresql_user:
     name: powa
-    #password: 
     role_attr_flags: SUPERUSER
     port: "{{ postgresql_port }}"
+  become_user: postgres
 
 - name: Set powa-web config.
   template: 
