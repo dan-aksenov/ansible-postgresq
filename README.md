@@ -46,7 +46,7 @@ For more information about pgBackRest visit https://pgbackrest.org
 - [ ] Install usefull extensions,
    - [x] powa
    - [ ] more?
-- [ ] Configure pg_hba.conf with some reasonable defaults
+- [x] Configure pg_hba.conf with some reasonable defaults
    - [ ] configure for repmgr
 - [x] Install tools,
 - [x] Config for pgbadger logging and website,
