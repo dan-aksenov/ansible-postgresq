@@ -27,8 +27,8 @@
   when: pgbackrest_dir is defined
   tags: pgbackrest
 
-- import_tasks: pgbouncer.yml
-  tags: pgbouncer
+#- import_tasks: pgbouncer.yml
+#  tags: pgbouncer
 
 - import_tasks: pgbadger.yml
   tags: pgbadger
