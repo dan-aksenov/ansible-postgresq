@@ -8,7 +8,7 @@ postgresql_service: systemd
 
 #pg_data mast be real directory not symlink, or pgbackrest won't work.
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
-pg_conf: {{ pg_data }}
+pg_conf: "{{ pg_data }}"
 #pgbackrest_dir is disabled by default
 #pgbackrest_dir: /var/lib/pgbackrest
 postgresql_admin_user: postgres
