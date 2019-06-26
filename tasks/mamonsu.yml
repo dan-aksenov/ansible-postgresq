@@ -92,8 +92,8 @@
     server_url: "{{ zabbix_url }}"
     login_user: Admin
     login_password: zabbix
-    host_name: "{{ agent_name }}"
-    visible_name: "{{ agent_name }}"
+    host_name: "{{ ansible_hostname }}"
+    visible_name: "{{ ansible_hostname }}"
     host_groups:
       - Linux servers
       - PostgreSQL
@@ -109,5 +109,5 @@
         main: 1
         useip: 1
         ip: "{{ ansible_default_ipv4.address }}"
-        dns: "{{ agent_name }}"
+        dns: "{{ ansible_hostname }}"
         port: 10050
