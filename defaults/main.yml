@@ -68,7 +68,7 @@ zabbix_server_port: 10051
 agent_name: "{% if ansible_dns.search is defined %}{{ inventory_hostname }}.{{ ansible_dns.search[0] }}{% else %}{{ inventory_hostname }}{% endif %}"
 
 # Defaults for pgbouncer.
-#pgbouncer_port: 6432
+pgbouncer_port: 6432
 
 # Need to include all to custom config since bouncer skips main file if include provided.
 pgbouncer_conf:
