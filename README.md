@@ -1,4 +1,4 @@
-# Ansible PostgreSQL install and serup role.
+# Ansible PostgreSQL install and setup role.
 inspired by github.com/galaxyproject/ansible-postgresql
 
 Designed to work no Centos7.
