@@ -8,3 +8,12 @@
   become: yes
   become_user: "{{ postgresql_admin_user }}"
   when: pg_dir.matched|int == 0
+
+- name: Create postmaster.opts. So initial pg_ctl restart will work.
+  lineinfile:
+     path: "{{ pg_data }}/postmaster.opts"
+     line: /usr/pgsql-{{ postgresql_version }}/bin/postgres
+     create: yes
+  become: yes
+  become_user: "{{ postgresql_admin_user }}"
+  when: postgresql_service == "pg_ctl"
