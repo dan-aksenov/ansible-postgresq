@@ -2,10 +2,9 @@
 - name: Install pgbadger and httpd.
   yum:
     state: latest
-    pkg: "{{ item }}"
-  with_items:
-    - pgbadger
-    - httpd
+    name:
+      - pgbadger
+      - httpd
 
 - name: Add firewall exception for http. Ignore if firewall is off.
   firewalld:

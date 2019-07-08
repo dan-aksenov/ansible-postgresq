@@ -2,9 +2,8 @@
 - name: "Install pgBackRest package."
   yum: 
     state: latest
-    pkg: "{{ item }}"
-  with_items:
-    - "pgbackrest"
+    name:
+      - pgbackrest
 
 - name: Template backrest configs(20ansible_pgbackrest.conf.j2)
   template:

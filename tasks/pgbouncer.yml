@@ -2,9 +2,8 @@
 - name: Install pgbouncer
   yum:
     state: latest
-    pkg: "{{ item }}"
-  with_items:
-    - pgbouncer
+    name:
+      - pgbouncer
 
 - name: Set include additional file in pgbouncer.ini.
   lineinfile: 
