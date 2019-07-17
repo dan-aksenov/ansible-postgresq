@@ -7,7 +7,7 @@
     immediate: true
   ignore_errors: yes
 
-- name: Set config options
+- name: Setup pg_hba 
   template: 
     src: pg_hba.conf.j2
     dest: "{{ pg_conf }}/pg_hba.conf"
