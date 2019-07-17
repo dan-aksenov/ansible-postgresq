@@ -20,7 +20,7 @@
   postgresql_pg_hba:
     dest: "{{ pg_conf }}/pg_hba.conf"
     contype: host
-    users: dbax,ansible
+    users: ansible
     source: 127.0.0.1
     databases: postgres
     method: peer
