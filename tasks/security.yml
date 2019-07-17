@@ -7,23 +7,13 @@
     immediate: true
   ignore_errors: yes
 
-#- name: Set config options
-#  template: 
-#    src: pg_hba.conf.j2
-#    dest: "{{ pg_conf }}/pg_hba.conf"
-#    owner: "{{ postgresql_admin_user }}"
-#    group: "{{ postgresql_admin_user }}"
-#    backup: yes
-#  notify: restart postgres
-
-- name: Edit pg_hba
-  postgresql_pg_hba:
+- name: Set config options
+  template: 
+    src: pg_hba.conf.j2
     dest: "{{ pg_conf }}/pg_hba.conf"
-    contype: host
-    users: ansible
-    source: 127.0.0.1
-    databases: postgres
-    method: peer
-    create: true
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    backup: yes
+  notify: restart postgres
 
 - meta: flush_handlers
