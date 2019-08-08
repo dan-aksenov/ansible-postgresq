@@ -14,6 +14,18 @@ host    all             all             127.0.0.1/32            trust
 # IPv6 local connections:
 host    all             all             ::1/128                 trust
 {% endif %}
+# "local" is for Unix domain socket connections only replication
+{% if postgresql_pg_hba_replication_local_socket is not defined or postgresql_pg_hba_replication_local_socket %}
+local   replication     all                                     trust
+{% endif %}
+# IPv4 local connections replication:
+{% if postgresql_pg_hba_replication_local is not defined or postgresql_pg_hba_replication_local %}
+host    replication     all             127.0.0.1/32            trust
+{% endif %}
+# IPv6 local connections replication:
+{% if postgresql_pg_hba_replication_local_ipv6 is not defined or postgresql_pg_hba_replication_local_ipv6 %}
+host    replication     all             ::1/128                 trust
+{% endif %}
 
 # Entries configured in postgresql_pg_hba_conf follow
 {% if postgresql_pg_hba_conf is defined %}
