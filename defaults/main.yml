@@ -22,6 +22,10 @@ databases:
   - mamonsu #ownership?
   - repmgr  #ownership?
 
+# List of databases to set in pgbouncer.ini
+pgbouncer_databases:
+  - postgres
+
 # List of precreated users.
 db_users:
   - username: postgres
