@@ -43,10 +43,10 @@
     dest: /etc/httpd/conf.d/badger.conf
   notify: restart httpd 
 
-- name: Put badger script for daily cron.
+- name: Put badger script for hourly cron.
   template:
-    src: badger_cron_daily.j2
-    dest: ~/badger_cron_daily.sh
+    src: badger_cron_hourly.j2
+    dest: ~/badger_cron_hourly.sh
     owner: "{{ postgresql_admin_user }}"
     group: "{{ postgresql_admin_user }}"
     mode: 0700
@@ -55,8 +55,8 @@
 
 - name: Configure cron for badger.
   cron:
-    name: "pgbadber daily"
+    name: "pgbadber hourly"
     user: "{{ postgresql_admin_user }}"
     minute: "50"
-    hour: "23"
-    job: "~/badger_cron_daily.sh &>/tmp/pgbadger.log"
+    hour: "*/2"
+    job: "nice -n 19 ~/badger_cron_hourly.sh &>/tmp/pgbadger.log"
