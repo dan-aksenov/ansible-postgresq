@@ -48,9 +48,9 @@
   notify: restart httpd
   tags: slave 
 
-- name: Put badger script for daily cron.
+- name: Put badger script for hourly cron.
   template:
-    src: badger_cron_daily.j2
+    src: badger_cron_hourly.j2
     dest: ~/badger_cron_hourly.sh
     owner: "{{ postgresql_admin_user }}"
     group: "{{ postgresql_admin_user }}"
