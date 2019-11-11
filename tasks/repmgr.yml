@@ -1,4 +1,10 @@
 ---
+- name: Setup repmgr.conf
+  template:
+    src: repmgr.conf.j2
+    dest: "/etc/repmgr/{{ postgresql_version }}/repmgr.conf"
+    backup: yes
+
 - name: Create REPMGR user.
   postgresql_user:
     name: repmgr
@@ -21,9 +27,3 @@
     db: repmgr
     port: "{{ postgresql_port }}"
   become_user: postgres
-
-- name: Setup repmgr.conf
-  template:
-    src: repmgr.conf.j2
-    dest: "/etc/repmgr/{{ postgresql_version }}/repmgr.conf"
-    backup: yes
