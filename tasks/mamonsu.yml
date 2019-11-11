@@ -23,6 +23,7 @@
     home: /var/run/mamonsu
     shell: /sbin/nologin
     state: present
+   tags: slave
 
 - name: Install mamonsu(pip)
   pip:
