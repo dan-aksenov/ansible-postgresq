@@ -6,6 +6,7 @@
     state: enabled
     immediate: true
   ignore_errors: yes
+  tags: slave
 
 - name: Setup pg_hba 
   template: 

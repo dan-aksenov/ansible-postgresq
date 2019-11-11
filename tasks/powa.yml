@@ -45,3 +45,4 @@
       owner: "{{ postgresql_admin_user }}"
       group: "{{ postgresql_admin_user }}"
       backup: yes
+  tags: slave

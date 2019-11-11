@@ -28,17 +28,21 @@
   pip:
     name: mamonsu
     state: latest
+  tags: slave
 
 - name: Copy unit from template.
   template: owner=root group=root mode=755
             src=mamonsu_init.j2
             dest=/etc/init.d/mamonsu
+  tags: slave
 
 - name: Create mamonsu etc directory
   file: path=/etc/mamonsu/plugins state=directory mode=0755
+  tags: slave
 
 - name: Create mamonsu log directory
   file: path=/var/log/mamonsu owner=mamonsu group=mamonsu state=directory mode=0755
+  tags: slave
 
 - name: Copy agent.conf template 
   template: owner=root group=root mode=644 
@@ -46,6 +50,7 @@
             dest=/etc/mamonsu/agent.conf
   notify:
     - restart mamonsu
+  tags: slave
 
 - postgresql_user:
     name: mamonsu
@@ -73,12 +78,14 @@
      name: mamonsu
      state: started
      enabled: yes
+  tags: slave
 
 - name: Install zabbix-api on ansible host.
   local_action:
     module: pip
     name: zabbix-api
   run_once: true
+  tags: slave
 
 #Right now getting HTTP Error 500: Internal Server Error. 
 #- name: Import mamonsu template.
@@ -111,3 +118,4 @@
         ip: "{{ ansible_default_ipv4.address }}"
         dns: "{{ ansible_hostname }}"
         port: 10050
+    tags: slave

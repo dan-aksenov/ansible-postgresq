@@ -18,6 +18,7 @@
   template:
     src: pgbackrest.conf.j2
     dest: /etc/pgbackrest.conf
+  tags: slave
 
 - name: Create stanza.
   command: pgbackrest --stanza="{{ pgbackrest_stanza }}" --log-level-console=info stanza-create

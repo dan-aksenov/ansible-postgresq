@@ -1,9 +1,9 @@
 ---
 - import_tasks: repository.yml
-  tags: 1_repository
+  tags: 1_repository,slave
 
 - import_tasks: install.yml
-  tags: 2_install
+  tags: 2_install,slave
 
 - import_tasks: initialize.yml
   tags: 3_init

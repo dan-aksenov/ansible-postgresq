@@ -7,8 +7,10 @@
       - pgcenter
       # python-devel requered for pgcli
       - python-devel
+  tags: slave
 
 - name: "Install pgcli command shell."
   pip:
     # good replacement for psql
     name: pgcli
+  tags: slave
