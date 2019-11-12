@@ -31,23 +31,37 @@
   tags: slave
 
 - name: Copy unit from template.
-  template: owner=root group=root mode=755
-            src=mamonsu_init.j2
-            dest=/etc/init.d/mamonsu
+  template: 
+    owner: root
+    group: root
+    mode: 755
+    src: mamonsu_init.j2
+    dest: /etc/init.d/mamonsu
   tags: slave
 
 - name: Create mamonsu etc directory
-  file: path=/etc/mamonsu/plugins state=directory mode=0755
+  file: 
+    path: /etc/mamonsu/plugins
+    state: directory 
+    mode: 0755
   tags: slave
 
 - name: Create mamonsu log directory
-  file: path=/var/log/mamonsu owner=mamonsu group=mamonsu state=directory mode=0755
+  file: 
+    path=/var/log/mamonsu
+    owner: mamonsu
+    group: mamonsu
+    state: directory
+    mode: 0755
   tags: slave
 
 - name: Copy agent.conf template 
-  template: owner=root group=root mode=644 
-            src=mamonsu_agent.conf.j2
-            dest=/etc/mamonsu/agent.conf
+  template: 
+    owner: root
+    group: root
+    mode: 644 
+    src: mamonsu_agent.conf.j2
+    dest: /etc/mamonsu/agent.conf
   notify:
     - restart mamonsu
   tags: slave
