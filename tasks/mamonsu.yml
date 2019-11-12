@@ -23,7 +23,7 @@
     home: /var/run/mamonsu
     shell: /sbin/nologin
     state: present
-   tags: slave
+  tags: slave
 
 - name: Install mamonsu(pip)
   pip:
@@ -49,7 +49,7 @@
 
 - name: Create mamonsu log directory
   file: 
-    path=/var/log/mamonsu
+    path: /var/log/mamonsu
     owner: mamonsu
     group: mamonsu
     state: directory
