@@ -17,6 +17,7 @@
       owner: "{{ postgresql_admin_user }}"
       group: "{{ postgresql_admin_user }}"
       backup: yes
-  notify: restart postgres
+  notify: reload postgres
+  # Reload instead of restart. Check restart job was added to notify if postmaster scoped configs are modified.
 
 - meta: flush_handlers
