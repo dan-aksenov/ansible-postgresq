@@ -3,8 +3,6 @@
 ##
 
 {% if pgbackrest_dir is defined %}
-archive_command='pgbackrest --stanza={{ ansible_hostname }} archive-push %p'
-wal_level='logical'
-hot_standby='on'
 archive_mode='on'
+archive_command='pgbackrest --stanza={{ ansible_hostname }} archive-push %p'
 {% endif %}

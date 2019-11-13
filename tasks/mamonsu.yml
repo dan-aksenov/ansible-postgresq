@@ -133,4 +133,4 @@
         ip: "{{ ansible_default_ipv4.address }}"
         dns: "{{ ansible_hostname }}"
         port: 10050
-    tags: slave
+  tags: slave

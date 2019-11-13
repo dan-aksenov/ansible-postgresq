@@ -12,7 +12,7 @@
   register: pg_pid
   when: postgresql_service == "pg_ctl"
 
-- name: Start and enable postgresql service.
+- name: Start postgresql service.
   command: "/usr/pgsql-{{ postgresql_version }}/bin/pg_ctl -D {{ pg_data }} start" 
   become: yes
   become_user: "{{ postgresql_admin_user }}"

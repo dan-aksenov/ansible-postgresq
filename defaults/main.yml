@@ -47,7 +47,7 @@ db_users:
 
 postgresql_extensions: [ "pg_stat_statements", "powa", "pg_stat_kcache", "pg_qualstats", "repmgr" ]
 
-# Postgresql.conf defaults
+# Postgresql.conf 'reasonable' defaults
 postgresql_conf:
   listen_addresses: "'*'"
   port: "{{ postgresql_port }}"
@@ -58,6 +58,7 @@ postgresql_conf:
   pg_stat_statements.track: "all"
   max_wal_senders: "10"
   hot_standby: "on"
+  wal_level: "logical"
   wal_keep_segments: "5000"
   wal_log_hints: "on"
   max_parallel_workers_per_gather: "0"    
