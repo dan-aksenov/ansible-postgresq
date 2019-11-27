@@ -17,6 +17,8 @@
       owner: "{{ postgresql_admin_user }}"
       group: "{{ postgresql_admin_user }}"
       backup: yes
-  notify: restart postgres
+  notify: reload postgres
+  # Reload instead of restart. Check_restart.yml task was added to notify if postmaster scoped configs are modified.
 
-- meta: flush_handlers
+# flush removed. we dont expect service to be RESTARTED during playbook run. and it'll gonn to be STARTED in start.yml task
+#- meta: flush_handlers

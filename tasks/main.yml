@@ -38,3 +38,6 @@
 
 - import_tasks: mamonsu.yml
   tags: mamonsu
+
+- import_tasks: check_restart.yml 
+  tags: check_restart

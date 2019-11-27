@@ -64,6 +64,5 @@
     name: "pgbadber hourly"
     user: "{{ postgresql_admin_user }}"
     minute: "50"
-    hour: "23"
     job: "~/badger_cron_hourly.sh &>/tmp/pgbadger.log"
   tags: slave
