@@ -38,11 +38,11 @@
     port: "{{ postgresql_port }}"
   become_user: postgres
 
-- name: Set powa-web config.
-  template: 
-      src: powa-web.conf.j2
-      dest: "/etc/powa-web.conf"
-      owner: "{{ postgresql_admin_user }}"
-      group: "{{ postgresql_admin_user }}"
-      backup: yes
-  tags: slave
+#- name: Set powa-web config.
+#  template: 
+#      src: powa-web.conf.j2
+#      dest: "/etc/powa-web.conf"
+#      owner: "{{ postgresql_admin_user }}"
+#      group: "{{ postgresql_admin_user }}"
+#      backup: yes
+#  tags: slave
