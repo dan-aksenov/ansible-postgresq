@@ -29,8 +29,8 @@
   pip:
     name: mamonsu
     state: latest
+    executable: pip3
   tags: slave
-  executable: pip3
 
 - name: Copy unit from template.
   template: 
