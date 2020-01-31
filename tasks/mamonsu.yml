@@ -30,6 +30,7 @@
     name: mamonsu
     state: latest
   tags: slave
+  executable: pip3
 
 - name: Copy unit from template.
   template: 
