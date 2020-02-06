@@ -5,14 +5,14 @@
     permanent: true
     state: enabled
     immediate: true
-  ignore_errors: yes
+  ignore_errors: true
   tags: slave
 
-- name: Setup pg_hba 
-  template: 
+- name: Setup pg_hba
+  template:
     src: pg_hba.conf.j2
     dest: "{{ pg_conf }}/pg_hba.conf"
     owner: "{{ postgresql_admin_user }}"
     group: "{{ postgresql_admin_user }}"
-    backup: yes
+    backup: true
   notify: restart postgres

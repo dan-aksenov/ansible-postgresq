@@ -6,21 +6,21 @@ postgresql_version: 11
 # Manage cluster with systemd or pg_ctl
 postgresql_service: systemd
 
-#pg_data mast be real directory not symlink, or pgbackrest won't work.
+# pg_data mast be real directory not symlink, or pgbackrest won't work.
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
 pg_conf: "{{ pg_data }}"
-#pgbackrest_dir is disabled by default
-#pgbackrest_dir: /var/lib/pgbackrest
+# pgbackrest_dir is disabled by default
+# pgbackrest_dir: /var/lib/pgbackrest
 postgresql_admin_user: postgres
-postgresql_port: 5432 
-pgbackrest_stanza: "{{ ansible_hostname }}" 
+postgresql_port: 5432
+pgbackrest_stanza: "{{ ansible_hostname }}"
 
 # List of databases to be precreated.
 databases:
   - postgres
   - powa
-  - mamonsu #ownership?
-  - repmgr  #ownership?
+  - mamonsu
+  - repmgr
 
 # List of precreated users.
 db_users:
@@ -41,7 +41,8 @@ db_users:
     superuser: true
     replication: true
 
-postgresql_extensions: [ "pg_stat_statements", "powa", "pg_stat_kcache", "pg_qualstats", "repmgr" ]
+postgresql_extensions:
+  ["pg_stat_statements", "powa", "pg_stat_kcache", "pg_qualstats", "repmgr"]
 
 # Postgresql.conf 'reasonable' defaults
 postgresql_conf:
@@ -57,8 +58,8 @@ postgresql_conf:
   wal_level: "logical"
   wal_keep_segments: "5000"
   wal_log_hints: "on"
-  max_parallel_workers_per_gather: "0"    
-  max_parallel_workers: "0"              
+  max_parallel_workers_per_gather: "0"
+  max_parallel_workers: "0"
   checkpoint_timeout: "30min"
   track_activity_query_size: "10240"
 
@@ -66,4 +67,6 @@ postgresql_conf:
 zabbix_server:
 zabbix_server_port: 10051
 # moved to template
-agent_name: "{% if ansible_dns.search is defined %}{{ inventory_hostname }}.{{ ansible_dns.search[0] }}{% else %}{{ inventory_hostname }}{% endif %}"
+agent_name: >
+  "{% if ansible_dns.search is defined %}{{ inventory_hostname }}
+  .{{ ansible_dns.search[0] }}{% else %}{{ inventory_hostname }}{% endif %}"

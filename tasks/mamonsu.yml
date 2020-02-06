@@ -1,25 +1,9 @@
 ---
-#- name: Download mamonsu repository script from package.cloud.io
-#  get_url: 
-#    url: https://packagecloud.io/install/repositories/postgrespro/mamonsu/script.rpm.sh
-#    dest: /tmp/script.rpm.sh
-#    mode: 0440
-
-#- name: Run repo installer script
-#  command: bash /tmp/script.rpm.sh
-
-#- name: Install mamonsu.
-#  yum: 
-#    state: latest
-#    pkg: "{{ item }}"
-#  with_items:
-#    - mamonsu
-
 - name: Add mamonsu user.
-  user: 
+  user:
     name: mamonsu
     comment: mamonsu monitoring user
-    createhome: yes
+    createhome: true
     home: /var/run/mamonsu
     shell: /sbin/nologin
     state: present
@@ -28,12 +12,12 @@
 - name: Install mamonsu(pip)
   pip:
     name: mamonsu
-    state: latest
+    state: present
     executable: pip3
   tags: slave
 
 - name: Copy unit from template.
-  template: 
+  template:
     owner: root
     group: root
     mode: 755
@@ -42,14 +26,14 @@
   tags: slave
 
 - name: Create mamonsu etc directory
-  file: 
+  file:
     path: /etc/mamonsu/plugins
-    state: directory 
+    state: directory
     mode: 0755
   tags: slave
 
 - name: Create mamonsu log directory
-  file: 
+  file:
     path: /var/log/mamonsu
     owner: mamonsu
     group: mamonsu
@@ -57,11 +41,11 @@
     mode: 0755
   tags: slave
 
-- name: Copy agent.conf template 
-  template: 
+- name: Copy agent.conf template
+  template:
     owner: root
     group: root
-    mode: 644 
+    mode: 644
     src: mamonsu_agent.conf.j2
     dest: /etc/mamonsu/agent.conf
   notify:
@@ -84,16 +68,16 @@
 - name: Bootstrap DDL for monitoring
   shell: mamonsu bootstrap -M mamonsu --port="{{ postgresql_port }}" mamonsu
   become_user: postgres
-  ignore_errors: yes
+  ignore_errors: true
   notify:
     - restart mamonsu
 
 - name: Start monitoring service.
-  service: 
-     daemon_reload: yes
-     name: mamonsu
-     state: started
-     enabled: yes
+  service:
+    daemon_reload: true
+    name: mamonsu
+    state: started
+    enabled: true
   tags: slave
 
 - name: Install zabbix-api on ansible host.
@@ -103,13 +87,7 @@
   run_once: true
   tags: slave
 
-#Right now getting HTTP Error 500: Internal Server Error. 
-#- name: Import mamonsu template.
-#  shell: mamonsu zabbix template export /usr/share/mamonsu/template.xml --url="{{ zabbix_url }}" --user=Admin --password=zabbix
-#  run_once: true
-#  ignore_errors: yes
-
-- name: Create new of update existing zabbix host. 
+- name: Create new of update existing zabbix host.
   local_action:
     module: zabbix_host
     server_url: "{{ zabbix_url }}"

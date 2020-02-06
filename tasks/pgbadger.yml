@@ -1,7 +1,7 @@
 ---
 - name: Install pgbadger and httpd.
   yum:
-    state: latest
+    state: present
     name:
       - pgbadger
       - httpd
@@ -12,24 +12,24 @@
     service: http
     permanent: true
     state: enabled
-    immediate: yes
-  ignore_errors: yes
+    immediate: true
+  ignore_errors: true
   tags: slave
-    
+
 - name: Setup postgresql for extended logging.
-  template: 
-      src: 30postgresql_logging.conf.j2
-      dest: "{{ pg_conf }}/conf.d/30postgresql_logging.conf"
-      owner: "{{ postgresql_admin_user }}"
-      group: "{{ postgresql_admin_user }}"
-      backup: yes
-  notify: reload postgres  
-    
+  template:
+    src: 30postgresql_logging.conf.j2
+    dest: "{{ pg_conf }}/conf.d/30postgresql_logging.conf"
+    owner: "{{ postgresql_admin_user }}"
+    group: "{{ postgresql_admin_user }}"
+    backup: true
+  notify: reload postgres
+
 - name: Start and enable httpd service.
   service:
     name: httpd
     state: started
-    enabled: yes
+    enabled: true
   tags: slave
 
 - name: Create apache badger directory.
@@ -46,7 +46,7 @@
     src: http.conf
     dest: /etc/httpd/conf.d/badger.conf
   notify: restart httpd
-  tags: slave 
+  tags: slave
 
 - name: Put badger script for hourly cron.
   template:
@@ -55,7 +55,7 @@
     owner: "{{ postgresql_admin_user }}"
     group: "{{ postgresql_admin_user }}"
     mode: 0700
-  become: yes
+  become: true
   become_user: "{{ postgresql_admin_user }}"
   tags: slave
 

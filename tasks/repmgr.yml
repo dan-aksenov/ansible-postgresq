@@ -26,5 +26,5 @@
   template:
     src: repmgr.conf.j2
     dest: "/etc/repmgr/{{ postgresql_version }}/repmgr.conf"
-    backup: yes
+    backup: true
   tags: slave

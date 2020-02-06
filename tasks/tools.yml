@@ -1,7 +1,7 @@
 ---
 - name: "Install additional postgresql tools."
   yum:
-    state: latest
+    state: present
     name:
       # top-like utility for postgresql monitoring
       - pgcenter

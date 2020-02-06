@@ -1,11 +1,11 @@
---- 
+---
 - name: Find if pg cluster already exists.
   find: paths="{{ pg_data }}" file_type=file patterns="PG_VERSION"
   register: pg_dir
 
 - name: Initialize database. Skip this if already exists.
   command: /usr/pgsql-{{ postgresql_version }}/bin/initdb -D {{ pg_data }}
-  become: yes
+  become: true
   become_user: "{{ postgresql_admin_user }}"
   when: pg_dir.matched|int == 0
 
@@ -13,7 +13,7 @@
   lineinfile:
      path: "{{ pg_data }}/postmaster.opts"
      line: /usr/pgsql-{{ postgresql_version }}/bin/postgres
-     create: yes
-  become: yes
+     create: true
+  become: true
   become_user: "{{ postgresql_admin_user }}"
   when: postgresql_service == "pg_ctl"
