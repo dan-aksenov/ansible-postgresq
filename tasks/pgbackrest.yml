@@ -24,8 +24,11 @@
   command: >
     pgbackrest --stanza="{{ pgbackrest_stanza }}"
     --log-level-console=info stanza-create
+  register: result
   become: true
   become_user: "{{ postgresql_admin_user }}"
+  changed_when:
+    - '"ERROR" in result.stderr'
 
 - name: Configure cron for pgBackRest full
   cron:

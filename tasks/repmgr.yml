@@ -6,6 +6,7 @@
     role_attr_flags: SUPERUSER,REPLICATION
     port: "{{ postgresql_port }}"
   become_user: postgres
+  become: true
 
 - name: Create REPMGR database.
   postgresql_db:
@@ -14,6 +15,7 @@
     owner: repmgr
     port: "{{ postgresql_port }}"
   become_user: postgres
+  become: true
 
 - name: Create extensions.
   postgresql_ext:
@@ -21,6 +23,7 @@
     db: repmgr
     port: "{{ postgresql_port }}"
   become_user: postgres
+  become: true
 
 - name: Setup repmgr.conf
   template:

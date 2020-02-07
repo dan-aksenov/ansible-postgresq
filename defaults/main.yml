@@ -51,7 +51,7 @@ postgresql_conf:
   max_connections: 250
   shared_buffers: "{{ (ansible_memory_mb.real.total/4) |round|int }}MB"
   effective_cache_size: "{{ ansible_memory_mb.real.total }}MB"
-  shared_preload_libraries: "{{ postgresql_extensions|join(',') }}"
+  shared_preload_libraries: "'{{ postgresql_extensions|join(',') }}'"
   pg_stat_statements.track: "all"
   max_wal_senders: "10"
   hot_standby: "on"

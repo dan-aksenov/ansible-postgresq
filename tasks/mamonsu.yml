@@ -20,7 +20,7 @@
   template:
     owner: root
     group: root
-    mode: 755
+    mode: 0755
     src: mamonsu_init.j2
     dest: /etc/init.d/mamonsu
   tags: slave
@@ -45,17 +45,19 @@
   template:
     owner: root
     group: root
-    mode: 644
+    mode: 0644
     src: mamonsu_agent.conf.j2
     dest: /etc/mamonsu/agent.conf
   notify:
     - restart mamonsu
   tags: slave
 
-- postgresql_user:
+- name: Create mamonsu database user
+  postgresql_user:
     name: mamonsu
     port: "{{ postgresql_port }}"
   become_user: postgres
+  become: true
 
 - name: Create Mamonsu database.
   postgresql_db:
@@ -64,13 +66,15 @@
     port: "{{ postgresql_port }}"
     owner: mamonsu
   become_user: postgres
+  become: true
 
-- name: Bootstrap DDL for monitoring
-  shell: mamonsu bootstrap -M mamonsu --port="{{ postgresql_port }}" mamonsu
-  become_user: postgres
-  ignore_errors: true
-  notify:
-    - restart mamonsu
+# - name: Bootstrap DDL for monitoring
+#  shell: mamonsu bootstrap -M mamonsu --port="{{ postgresql_port }}" mamonsu
+#  become_user: postgres
+#  become: true
+#  ignore_errors: true
+#  notify:
+#    - restart mamonsu
 
 - name: Start monitoring service.
   service:
@@ -80,36 +84,36 @@
     enabled: true
   tags: slave
 
-- name: Install zabbix-api on ansible host.
-  local_action:
-    module: pip
-    name: zabbix-api
-  run_once: true
-  tags: slave
+# - name: Install zabbix-api on ansible host.
+#  local_action:
+#    module: pip
+#    name: zabbix-api
+#  run_once: true
+#  tags: slave
 
-- name: Create new of update existing zabbix host.
-  local_action:
-    module: zabbix_host
-    server_url: "{{ zabbix_url }}"
-    login_user: Admin
-    login_password: zabbix
-    host_name: "{{ ansible_hostname }}"
-    visible_name: "{{ ansible_hostname }}"
-    host_groups:
-      - Linux servers
-      - PostgreSQL
-      - "{{ zabbix_group }}"
-    link_templates:
-      - Template OS Linux
-      - PostgresPro-Linux
-    status: enabled
-    state: present
-    inventory_mode: automatic
-    interfaces:
-      - type: 1
-        main: 1
-        useip: 1
-        ip: "{{ ansible_default_ipv4.address }}"
-        dns: "{{ ansible_hostname }}"
-        port: 10050
-  tags: slave
+# - name: Create new of update existing zabbix host.
+#  local_action:
+#    module: zabbix_host
+#    server_url: "{{ zabbix_url }}"
+#   login_user: Admin
+#    login_password: zabbix
+#    host_name: "{{ ansible_hostname }}"
+#    visible_name: "{{ ansible_hostname }}"
+#    host_groups:
+#      - Linux servers
+#      - PostgreSQL
+#      - "{{ zabbix_group }}"
+#    link_templates:
+#      - Template OS Linux
+#      - PostgresPro-Linux
+#    status: enabled
+#    state: present
+#    inventory_mode: automatic
+#    interfaces:
+#      - type: 1
+#        main: 1
+#        useip: 1
+#        ip: "{{ ansible_default_ipv4.address }}"
+#        dns: "{{ ansible_hostname }}"
+#        port: 10050
+#  tags: slave
