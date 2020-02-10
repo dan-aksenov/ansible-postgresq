@@ -30,8 +30,9 @@
 - import_tasks: pgbadger.yml
   tags: pgbadger
 
-- import_tasks: tools.yml
-  tags: tools
+# Not shure its needed here...
+# - import_tasks: tools.yml
+#  tags: tools
 
 - import_tasks: mamonsu.yml
   tags: mamonsu
