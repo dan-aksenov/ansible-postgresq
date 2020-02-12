@@ -4,16 +4,6 @@
     name: httpd
     state: restarted
 
-- name: restart mamonsu
-  service:
-    name: mamonsu
-    state: restarted
-
-- name: reload pgbouncer
-  service:
-    name: pgbouncer
-    state: reloaded
-
 # Restart and reload postgres depending on service management.
 # Use pg_ctl if postgres not namaged by systemd.
 
