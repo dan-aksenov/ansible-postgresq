@@ -4,5 +4,5 @@
 
 {% if pgbackrest_dir is defined %}
 archive_mode='on'
-archive_command='pgbackrest --stanza={{ ansible_hostname }} archive-push %p'
+archive_command='pgbackrest --stanza={{ pgbackrest_stanza }} archive-push %p'
 {% endif %}
