@@ -30,8 +30,17 @@ Default backup path is `/var/lib/pgsql/{{ postgresql_version }}/backups`.
 If backup directory variable is not specified - backup section is skipped.
 For more information about pgBackRest visit https://pgbackrest.org
 
+## Molecule testing
+- default: testging single instance postgresql managed by systemd.
+
+  ```molecule test```
+- pg_ctl: testging single instance postgresql managed by pg_ctl
+
+  ```molecule test -s pg_ctl```
+
 ## Features to be included:
 
+- [ ] Merge with postgres-patroni role (https://github.com/dan-aksenov/ansible/tree/master/roles/postgres-patroni)
 - [x] Add repository,
 - [x] Install postgres packages,
 - [x] Initillize cluster if not exists,
