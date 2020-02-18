@@ -9,7 +9,7 @@
   become_user: "{{ postgresql_admin_user }}"
   when: pg_dir.matched|int == 0
 
-- name: 111Create postmaster.opts. So initial pg_ctl restart will work.
+- name: Create postmaster.opts. So initial pg_ctl restart will work.
   file:
     path: "{{ pg_data }}/postmaster.opts"
     state: touch
