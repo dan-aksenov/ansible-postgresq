@@ -14,7 +14,7 @@
 
 - name: Start postgresql service with pg_ctl.
   command: |
-    "/usr/pgsql-{{ postgresql_version }}/bin/pg_ctl -D {{ pg_data }} start"
+    /usr/pgsql-{{ postgresql_version }}/bin/pg_ctl -D {{ pg_data }} start
   become: true
   become_user: "{{ postgresql_admin_user }}"
-  when: postgresql_service == "pg_ctl"  # and pg_pid.stat.exists
+  when: postgresql_service == "pg_ctl"  and pg_pid.stat.exists
