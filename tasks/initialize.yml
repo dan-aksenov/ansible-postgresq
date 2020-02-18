@@ -11,9 +11,11 @@
 
 - name: Create postmaster.opts. So initial pg_ctl restart will work.
   lineinfile:
-     path: "{{ pg_data }}/postmaster.opts"
-     line: /usr/pgsql-{{ postgresql_version }}/bin/postgres
-     create: true
+    path: "{{ pg_data }}/postmaster.opts"
+    line: >
+      /usr/pgsql-{{ postgresql_version }}/bin/postgres
+      "-D" "/var/lib/pgsql/11/data"
+    create: true
   become: true
   become_user: "{{ postgresql_admin_user }}"
   when: postgresql_service == "pg_ctl"
