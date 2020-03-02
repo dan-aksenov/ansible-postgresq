@@ -30,6 +30,9 @@ Default backup path is `/var/lib/pgsql/{{ postgresql_version }}/backups`.
 If backup directory variable is not specified - backup section is skipped.
 For more information about pgBackRest visit https://pgbackrest.org
 
+## Install with Patroni
+Need to set ansible variable postgresql_service to "patroni" and specify DSN configurations(etcd by default)
+
 ## Molecule testing
 - default: testging single instance postgresql managed by systemd.
 
