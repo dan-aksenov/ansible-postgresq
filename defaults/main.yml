@@ -3,8 +3,18 @@
 el_version: 7
 postgresql_version: 11
 
-# Manage cluster with systemd or pg_ctl
+# Manage cluster with systemd, pg_ctl or patroni
 postgresql_service: systemd
+
+# Patroni specific settings
+patroni_cluster_name: "batman"
+patroni_namespace: "/service"
+patroni_host_name: "{{ ansible_hostname }}"
+etcd_hosts: "localhost:2379"
+# Consul settings
+# consul_host: "localhost:8500"
+# consul_token: ""
+# consul_url: "localhost:8500"
 
 # pg_data mast be real directory not symlink, or pgbackrest won't work.
 pg_data: /var/lib/pgsql/{{ postgresql_version }}/data
@@ -48,7 +58,7 @@ postgresql_extensions:
 postgresql_conf:
   listen_addresses: "'*'"
   port: "{{ postgresql_port }}"
-  max_connections: 250
+  max_connections: 100
   shared_buffers: "{{ (ansible_memory_mb.real.total/4) |round|int }}MB"
   effective_cache_size: "{{ ansible_memory_mb.real.total }}MB"
   shared_preload_libraries: "'{{ postgresql_extensions|join(',') }}'"
@@ -71,3 +81,12 @@ postgresql_conf:
   auto_explain.log_format: "text"
   auto_explain.log_nested_statements: "true"
   auto_explain.sample_rate: "1"
+
+# Right now this section only affects patroni's hba.
+postgresql_hba:
+  - local all all peer
+  - host all all 127.0.0.1/32 trust
+  - host all all ::1/128 trust
+  - local replication all trust
+  - host replication all 127.0.0.1/32 trust
+  - host replication all ::1/128 trust

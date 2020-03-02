@@ -38,9 +38,18 @@ For more information about pgBackRest visit https://pgbackrest.org
 
   ```molecule test -s pg_ctl```
 
+- patroni: testging 1 node patroni installation with etcd as dsn
+
+  ```molecule test -s pg_ctl```
+
+- patroni3: testging 3 node patroni installation with etcd as dsn
+
+  ```molecule test -s pg_ctl```
+
+
 ## Features to be included:
 
-- [ ] Merge with postgres-patroni role (https://github.com/dan-aksenov/ansible/tree/master/roles/postgres-patroni)
+- [x] Merge with postgres-patroni role (https://github.com/dan-aksenov/ansible/tree/master/roles/postgres-patroni)
 - [x] Add repository,
 - [x] Install postgres packages,
 - [x] Initillize cluster if not exists,
@@ -50,13 +59,11 @@ For more information about pgBackRest visit https://pgbackrest.org
    - [x] backups with pgBackRest,
 - [x] Install Mamonsu and register in zabbix,
    - [ ] still need bootstrap and template import fix,
-- [x] Install and configure pg_bouncer, 
-   - [ ] Setup users and passwords. Get passwords dynamically from pg_shadow?
 - [ ] Install usefull extensions,
    - [x] powa
    - [ ] more?
 - [x] Configure pg_hba.conf with some reasonable defaults
    - [ ] configure for repmgr
-- [x] Install tools,
+   - [ ] merge patroni hba with main postgresql config. 
 - [x] Config for pgbadger logging and website,
 - [x] Configure postgresql.conf

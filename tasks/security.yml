@@ -16,3 +16,4 @@
     group: "{{ postgresql_admin_user }}"
     backup: true
   notify: restart postgres
+  when: postgresql_service != "patroni"

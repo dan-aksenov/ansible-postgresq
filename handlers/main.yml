@@ -44,3 +44,8 @@
   become: true
   become_user: "{{ postgresql_admin_user }}"
   when: postgresql_service == "pg_ctl"
+
+- name: reload patroni
+  service:
+    name: patroni
+    state: reloaded
