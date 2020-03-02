@@ -34,18 +34,18 @@ For more information about pgBackRest visit https://pgbackrest.org
 Need to set ansible variable postgresql_service to "patroni" and specify DSN configurations(etcd by default)
 
 ## Molecule testing
-- default: testging single instance postgresql managed by systemd.
+- default: test single instance postgresql managed by systemd.
 
   ```molecule test```
-- pg_ctl: testging single instance postgresql managed by pg_ctl
+- pg_ctl: test single instance postgresql managed by pg_ctl
 
   ```molecule test -s pg_ctl```
 
-- patroni: testging 1 node patroni installation with etcd as dsn
+- patroni: test 1 node patroni installation with etcd as dsn
 
   ```molecule test -s pg_ctl```
 
-- patroni3: testging 3 node patroni installation with etcd as dsn
+- patroni3: test 3 node patroni installation with etcd as dsn
 
   ```molecule test -s pg_ctl```
 
