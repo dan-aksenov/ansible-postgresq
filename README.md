@@ -31,7 +31,7 @@ If backup directory variable is not specified - backup section is skipped.
 For more information about pgBackRest visit https://pgbackrest.org
 
 ## Install with Patroni
-Need to set ansible variable postgresql_service to "patroni" and specify DSN configurations(etcd by default)
+Need to set ansible variable postgresql_service to "patroni" and specify distributed configuration storage(etcd by default)
 
 ## Molecule testing
 - default: test single instance postgresql managed by systemd.
@@ -41,11 +41,11 @@ Need to set ansible variable postgresql_service to "patroni" and specify DSN con
 
   ```molecule test -s pg_ctl```
 
-- patroni: test 1 node patroni installation with etcd as dsn
+- patroni: test 1 node patroni installation with etcd
 
   ```molecule test -s pg_ctl```
 
-- patroni3: test 3 node patroni installation with etcd as dsn
+- patroni3: test 3 node patroni installation with etcd
 
   ```molecule test -s pg_ctl```
 
