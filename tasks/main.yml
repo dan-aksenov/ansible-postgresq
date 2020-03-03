@@ -28,7 +28,8 @@
 
 - import_tasks: powa.yml
   tags: powa
-  when: output.json.role == 'master' or postgresql_service != "patroni"
+  when: postgresql_service != "patroni" or
+    (output.json.role == "master" and postgresql_service == "patroni")
 
 - import_tasks: repmgr.yml
   tags: repmgr
