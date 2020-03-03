@@ -24,7 +24,7 @@
   when: postgresql_service != "patroni"
 
 - import_tasks: patroni-check.yml
-  tags: patroni-ckeck
+  tags: patroni-check
   when: postgresql_service == "patroni"
 
 - import_tasks: powa.yml
