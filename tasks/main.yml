@@ -14,6 +14,7 @@
   when: postgresql_service != "patroni"
 
 - import_tasks: patroni-setup.yml
+  tags: 4_config
   when: postgresql_service == "patroni"
 
 - import_tasks: security.yml
