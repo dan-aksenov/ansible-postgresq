@@ -3,8 +3,8 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+#lint:
+#  name: yamllint
 platforms:
   - name: postgresql
     image: centos:7
