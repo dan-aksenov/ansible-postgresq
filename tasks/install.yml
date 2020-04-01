@@ -1,6 +1,6 @@
 ---
 - name: Install PostgreSQL packages
-  yum:
+  package:
     state: present
     name:
       - "postgresql{{ postgresql_version | replace('.', '') }}"

@@ -1,6 +1,6 @@
 ---
 - name: Install pgdg repository package.
-  yum:
+  package:
     name: >
       https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{
       ansible_distribution_major_version }}-{{
