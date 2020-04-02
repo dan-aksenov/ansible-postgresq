@@ -44,6 +44,3 @@
 - import_tasks: pgbadger.yml
   tags: pgbadger
   when: postgresql_service != "patroni"
-
-- import_tasks: check_restart.yml
-  tags: check_restart
