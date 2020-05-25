@@ -43,11 +43,11 @@ Need to set ansible variable postgresql_service to "patroni" and specify distrib
 
 - patroni: test 1 node patroni installation with etcd
 
-  ```molecule test -s pg_ctl```
+  ```molecule test -s patroni```
 
 - patroni3: test 3 node patroni installation with etcd
 
-  ```molecule test -s pg_ctl```
+  ```molecule test -s patroni3```
 
 
 ## Features to be included:
