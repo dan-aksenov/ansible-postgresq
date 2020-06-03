@@ -13,12 +13,16 @@ def AnsibleRoleDefaults(host):
     return host.ansible('include_vars', '../../defaults/main.yml')['ansible_facts']
 
 
-def test_hosts_file(host):
-    f = host.file('/etc/hosts')
+def test_hosts_file(host, AnsibleRoleDefaults):
+    pg_data = AnsibleRoleDefaults['pg_data']
+    
+    # pg_data needs to be constructed including postgresql_version. How to do in in testinfra?
+    f = host.file('/var/lib/pgsql/11/data')
 
     assert f.exists
-    assert f.user == 'root'
-    assert f.group == 'root'
+    assert f.is_directory
+    assert f.user == 'postgres'
+    assert f.group == 'postgres'
 
 
 def test_etcd_service(host, AnsibleRoleDefaults):
