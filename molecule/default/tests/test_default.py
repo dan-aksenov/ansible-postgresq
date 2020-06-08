@@ -14,10 +14,10 @@ def AnsibleRoleDefaults(host):
 
 
 def test_hosts_file(host, AnsibleRoleDefaults):
-    pg_data = AnsibleRoleDefaults['pg_data']
+    postgresql_version = AnsibleRoleDefaults['postgresql_version']
     
     # pg_data needs to be constructed including postgresql_version. How to do in in testinfra?
-    f = host.file('/var/lib/pgsql/11/data')
+    f = host.file('/var/lib/pgsql/' + str(postgresql_version) + '/data')
 
     assert f.exists
     assert f.is_directory
