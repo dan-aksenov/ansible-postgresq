@@ -3,7 +3,7 @@
 ##
 
 {% if postgresql_hba is defined %}
-{% for line in postgresql_pg_hba_conf %}
+{% for line in postgresql_hba %}
 {{ line }}
 {% endfor %}
 {% endif %}

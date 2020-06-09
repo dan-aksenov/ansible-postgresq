@@ -1,4 +1,5 @@
 ---
+# To remove httpd? Dont need to install on database server?
 - name: Install pgbadger and httpd.
   yum:
     state: present
@@ -15,15 +16,6 @@
     immediate: true
   ignore_errors: true
   tags: slave
-
-- name: Setup postgresql for extended logging.
-  template:
-    src: 30postgresql_logging.conf.j2
-    dest: "{{ pg_conf }}/conf.d/30postgresql_logging.conf"
-    owner: "{{ postgresql_admin_user }}"
-    group: "{{ postgresql_admin_user }}"
-    backup: true
-  notify: reload postgres
 
 - name: Start and enable httpd service.
   service:
