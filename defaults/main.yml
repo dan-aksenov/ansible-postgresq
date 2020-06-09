@@ -6,7 +6,7 @@ postgresql_version: 11
 # Manage cluster with systemd, pg_ctl or patroni
 postgresql_service: systemd
 
-# Patroni specific settings
+# Patroni specific settings. Used if postgresql_service = patroni.
 patroni_cluster_name: "batman"
 patroni_namespace: "/service"
 patroni_host_name: "{{ ansible_hostname }}"
@@ -67,8 +67,8 @@ postgresql_conf:
   wal_level: "logical"
   wal_keep_segments: "5000"
   wal_log_hints: "on"
-  max_parallel_workers_per_gather: "0"
-  max_parallel_workers: "0"
+  max_parallel_workers_per_gather: "4"
+  max_parallel_workers: "4"
   checkpoint_timeout: "30min"
   track_activity_query_size: "10240"
   pg_stat_statements.track: "all"
