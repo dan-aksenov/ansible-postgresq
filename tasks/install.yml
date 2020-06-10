@@ -1,4 +1,9 @@
 ---
+- name: Disable the built-in PostgreSQL module on Centos 8
+  # Find a way to do in without command!
+  command: dnf -qy module disable postgresql
+  when: ansible_distribution_major_version|int == 8
+
 - name: Install PostgreSQL packages
   package:
     state: present
@@ -8,7 +13,7 @@
       - "postgresql{{ postgresql_version | replace('.', '') }}-contrib"
       - "postgresql{{ postgresql_version | replace('.', '') }}-libs"
       - python3-psycopg2
-      - python-psycopg2
+#      - python-psycopg2
       - pg_stat_kcache{{ postgresql_version | replace('.', '') }}
       - powa_{{ postgresql_version | replace('.', '') }}
       - pg_qualstats{{ postgresql_version | replace('.', '') }}
