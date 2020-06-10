@@ -22,7 +22,7 @@ provisioner:
   lint:
     name: ansible-lint
   options:
-    skip-tags: mamonsu
+    skip-tags: mamonsu,pgbackrest,pgbadger
 verifier:
   name: testinfra
   lint:
