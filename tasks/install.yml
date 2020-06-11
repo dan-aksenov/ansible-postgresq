@@ -6,6 +6,13 @@
   when: ansible_distribution_major_version|int == 8
   changed_when: '"Nothing to do" in result.stdout'
 
+- name: Install python-psycopg2 for Centos7
+  package:
+    state: present
+    name:
+      - python-psycopg2
+  when: ansible_distribution_major_version|int == 7
+
 - name: Install PostgreSQL packages
   package:
     state: present
@@ -15,7 +22,6 @@
       - "postgresql{{ postgresql_version | replace('.', '') }}-contrib"
       - "postgresql{{ postgresql_version | replace('.', '') }}-libs"
       - python3-psycopg2
-#      - python-psycopg2
       - pg_stat_kcache{{ postgresql_version | replace('.', '') }}
       - powa_{{ postgresql_version | replace('.', '') }}
       - pg_qualstats{{ postgresql_version | replace('.', '') }}
