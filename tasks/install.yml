@@ -36,9 +36,15 @@
       - gcc
       - python3-devel
       - python3-pip
-      - python-setuptools
       - python3-setuptools
   when: postgresql_service == "patroni"
+
+- name: Install python-setuptools for Centos7
+  package:
+    state: present
+    name:
+      - python-setuptools
+  when: ansible_distribution_major_version|int == 7 and postgresql_service == "patroni"
 
 - name: Install Patroni with etcd
   pip:
