@@ -52,7 +52,7 @@ db_users:
 
 postgresql_extensions:
   ["pg_stat_statements", "powa", "pg_stat_kcache",
-   "pg_qualstats", "repmgr", "auto_explain", "pgstattuple"]
+   "pg_qualstats", "repmgr", "auto_explain"]
 
 # Postgresql.conf 'reasonable' defaults
 postgresql_conf:
