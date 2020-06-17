@@ -27,7 +27,7 @@
       - "databases"
   register: database_list
 
-- name: Create extension powa in databases
+- name: Create extension hypopg in all existing databases
   postgresql_ext:
     name: hypopg
     db: "{{ item[0] }}"
