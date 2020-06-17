@@ -1,6 +1,7 @@
 ---
 - name: Check patroni api responce
-  # Do it via api, patronictl, or some other way?
+  # This task is essential to determine current master
+  # and run powa tasks on him instead of entire cluster
   uri:
     url: http://localhost:8008
     body_format: json

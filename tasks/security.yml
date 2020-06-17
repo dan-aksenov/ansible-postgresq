@@ -1,5 +1,5 @@
 ---
-- name: Configure firewall(Ingnore if service is not running)
+- name: Configure firewall (ingnored if firewalld is not running)
   firewalld:
     service: postgresql
     permanent: true
@@ -17,3 +17,4 @@
     backup: true
   notify: restart postgres
   when: postgresql_service != "patroni"
+  # patroni handles hba himself.
