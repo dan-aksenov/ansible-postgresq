@@ -53,7 +53,7 @@ db_users:
 # right now this is only extensions that go to shared_preload libraries
 postgresql_extensions:
   ["pg_stat_statements", "powa", "pg_stat_kcache",
-   "pg_qualstats", "repmgr", "auto_explain"]
+   "pg_qualstats", "repmgr", "auto_explain", "pg_wait_sampling"]
 
 # Postgresql.conf 'reasonable' defaults
 postgresql_conf:
