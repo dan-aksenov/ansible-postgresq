@@ -29,6 +29,7 @@
       - hypopg_{{ postgresql_version | replace('.', '') }}
       - repmgr{{ postgresql_version | replace('.', '') }}
       - pg_wait_sampling_{{ postgresql_version | replace('.', '') }}
+      - pg_track_settings{{ postgresql_version | replace('.', '') }}
 
 - name: Install support packages for partoni
   yum:
