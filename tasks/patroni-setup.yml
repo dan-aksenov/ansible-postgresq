@@ -28,3 +28,21 @@
     state: started
     enabled: true
     daemon_reload: true
+
+- name: Check patroni api responce
+  # This task is essential to determine current master
+  # and run powa tasks on him instead of entire cluster
+  uri:
+    url: http://localhost:8008
+    body_format: json
+    status_code: [200, 503]
+  register: output
+
+- name: Cluster check results
+  debug:
+    msg: "role: {{ output.json.role }} state: {{ output.json.state }}"
+
+- name: Check if restart pending
+  debug:
+    msg: "pending_restart: {{ output.json.pending_restart }}"
+  when: "'pending_restart' in output.json"

@@ -24,10 +24,6 @@
   tags: 6_startdb
   when: postgresql_service != "patroni"
 
-- import_tasks: patroni-check.yml
-  tags: patroni-check
-  when: postgresql_service == "patroni"
-
 - import_tasks: powa.yml
   tags: powa
   when: postgresql_service != "patroni" or
