@@ -17,7 +17,8 @@
   with_nested:
     - [postgres, powa]
     - [pg_stat_statements, btree_gist, powa,
-       pg_qualstats, pg_stat_kcache, pg_buffercache]
+       pg_qualstats, pg_stat_kcache, pg_buffercache,
+       pg_wait_sampling]
 
 - name: Get existing databases
   become: true
