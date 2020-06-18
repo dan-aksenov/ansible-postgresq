@@ -1,0 +1,75 @@
+---
+- name: Converge stage 1
+  hosts: postgres
+  vars:
+    postgresql_version: 12
+    postgresql_admin_user: 'postgres'
+    patroni_cluster_name: 'batman'
+  tasks: 
+    - name: install postgresql
+      yum:
+        state: present
+        name:
+          - "postgresql{{ postgresql_version | replace('.', '') }}"
+          - "postgresql{{ postgresql_version | replace('.', '') }}-server"
+          - "postgresql{{ postgresql_version | replace('.', '') }}-contrib"
+          - "postgresql{{ postgresql_version | replace('.', '') }}-libs"
+          - python3-psycopg2
+          - python-psycopg2
+          - pg_stat_kcache{{ postgresql_version | replace('.', '') }}
+          - powa_{{ postgresql_version | replace('.', '') }}
+          - pg_qualstats{{ postgresql_version | replace('.', '') }}
+          - pg_stat_kcache{{ postgresql_version | replace('.', '') }}
+          - hypopg_{{ postgresql_version | replace('.', '') }}
+          - repmgr{{ postgresql_version | replace('.', '') }}
+          - pg_wait_sampling_{{ postgresql_version | replace('.', '') }}
+          - pg_track_settings{{ postgresql_version | replace('.', '') }}
+
+    - name: Get master
+      uri:
+        url: http://localhost:8008
+        body_format: json
+        status_code: [200, 503]
+      register: output
+
+    - name: Stop patroni
+      service:
+        name: patroni
+        state: stopped
+
+    - name: init new master
+      command: /usr/pgsql-{{ postgresql_version }}/bin/initdb -D /var/lib/pgsql/{{ postgresql_version }}/data --data-checksums --encoding=UTF8 --locale=en_US.UTF-8
+      become: true
+      become_user: "{{ postgresql_admin_user }}"
+      args:
+        chdir: /tmp
+      when: output.json.role == "master"
+
+    - name: copy postgresq.conf to new master
+      command: cp /var/lib/pgsql/11/data/postgresql.conf /var/lib/pgsql/{{ postgresql_version }}/data
+      become: true
+      become_user: "{{ postgresql_admin_user }}"
+      args:
+        chdir: /tmp
+      when: output.json.role == "master"
+      
+    - name: copy postgresq.conf to new master
+      command: cp /var/lib/pgsql/11/data/postgresql.base.conf /var/lib/pgsql/{{ postgresql_version }}/data
+      become: true
+      become_user: "{{ postgresql_admin_user }}"
+      args:
+        chdir: /tmp
+      when: output.json.role == "master"
+
+    - name: run pg_upgrade
+      command: /usr/pgsql-{{ postgresql_version }}/bin/pg_upgrade -d /var/lib/pgsql/11/data -D /var/lib/pgsql/{{ postgresql_version }}/data -b /usr/pgsql-11/bin/ -B /usr/pgsql-{{ postgresql_version }}/bin/ -k
+      args:
+        chdir: /tmp
+      become: true
+      become_user: "{{ postgresql_admin_user }}"
+      when: output.json.role == "master"
+
+      # To do manually manually
+      # patronictl -c /etc/patroni/config.yml remove batman
+      # change datadir in /etc/patroni/config.yml 
+      # systemctl start patroni
