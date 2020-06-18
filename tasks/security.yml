@@ -15,6 +15,6 @@
     owner: "{{ postgresql_admin_user }}"
     group: "{{ postgresql_admin_user }}"
     backup: true
-  notify: restart postgres
+  notify: reload postgres
   when: postgresql_service != "patroni"
   # patroni handles hba himself.
