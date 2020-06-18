@@ -1,0 +1,37 @@
+---
+- name: Converge stage 1
+  hosts: postgres
+  vars:
+    postgresql_version: 12
+  tasks: 
+    - name: install postgresql
+      yum:
+        state: present
+        name:
+          - "postgresql{{ postgresql_version | replace('.', '') }}"
+          - "postgresql{{ postgresql_version | replace('.', '') }}-server"
+          - "postgresql{{ postgresql_version | replace('.', '') }}-contrib"
+          - "postgresql{{ postgresql_version | replace('.', '') }}-libs"
+          - python3-psycopg2
+          - python-psycopg2
+          - pg_stat_kcache{{ postgresql_version | replace('.', '') }}
+          - powa_{{ postgresql_version | replace('.', '') }}
+          - pg_qualstats{{ postgresql_version | replace('.', '') }}
+          - pg_stat_kcache{{ postgresql_version | replace('.', '') }}
+          - hypopg_{{ postgresql_version | replace('.', '') }}
+          - repmgr{{ postgresql_version | replace('.', '') }}
+          - pg_wait_sampling_{{ postgresql_version | replace('.', '') }}
+          - pg_track_settings{{ postgresql_version | replace('.', '') }}
+    - name: Get master
+      uri:
+        url: http://localhost:8008
+        body_format: json
+        status_code: [200, 503]
+      register: output
+    - name: Stop patroni
+      service:
+        name: patroni
+        state: stopped
+    - name: init new master
+
+# step 3 rejoin secondaries
