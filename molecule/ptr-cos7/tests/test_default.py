@@ -8,6 +8,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
     os.environ['MOLECULE_INVENTORY_FILE']
 ).get_hosts('postgres')
 
+
 def test_patroni_health(host):
     cmd = host.run(
         "curl -L http://localhost:8008")

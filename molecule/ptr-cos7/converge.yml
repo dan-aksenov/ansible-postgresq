@@ -2,7 +2,7 @@
 - name: Converge
   hosts: postgres
   vars:
-    etcd_hosts: "etcd1:23799"
+    etcd_hosts: "etcd1:2379"
     postgresql_service: patroni
     postgresql_hba:
       - local all all peer
