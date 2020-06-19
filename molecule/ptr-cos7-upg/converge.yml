@@ -24,13 +24,14 @@
           - repmgr{{ postgresql_version | replace('.', '') }}
           - pg_wait_sampling_{{ postgresql_version | replace('.', '') }}
           - pg_track_settings{{ postgresql_version | replace('.', '') }}
+          - python36-pexpect # to run interacrive patronictl (epel required)
 
     - name: Get master
       uri:
         url: http://localhost:8008
         body_format: json
         status_code: [200, 503]
-      register: output
+      register: patroni_master
 
     - name: Stop patroni
       service:
@@ -43,7 +44,7 @@
       become_user: "{{ postgresql_admin_user }}"
       args:
         chdir: /tmp
-      when: output.json.role == "master"
+      when: patroni_master.json.role == "master"
 
     - name: copy postgresq.conf to new master
       command: cp /var/lib/pgsql/11/data/postgresql.conf /var/lib/pgsql/{{ postgresql_version }}/data
@@ -51,7 +52,7 @@
       become_user: "{{ postgresql_admin_user }}"
       args:
         chdir: /tmp
-      when: output.json.role == "master"
+      when: patroni_master.json.role == "master"
       
     - name: copy postgresq.conf to new master
       command: cp /var/lib/pgsql/11/data/postgresql.base.conf /var/lib/pgsql/{{ postgresql_version }}/data
@@ -59,7 +60,7 @@
       become_user: "{{ postgresql_admin_user }}"
       args:
         chdir: /tmp
-      when: output.json.role == "master"
+      when: patroni_master.json.role == "master"
 
     - name: run pg_upgrade
       command: /usr/pgsql-{{ postgresql_version }}/bin/pg_upgrade -d /var/lib/pgsql/11/data -D /var/lib/pgsql/{{ postgresql_version }}/data -b /usr/pgsql-11/bin/ -B /usr/pgsql-{{ postgresql_version }}/bin/ -k
@@ -67,9 +68,16 @@
         chdir: /tmp
       become: true
       become_user: "{{ postgresql_admin_user }}"
-      when: output.json.role == "master"
+      when: patroni_master.json.role == "master"
 
-      # To do manually manually
+ #   - name: reinit patroni
+ #     expect:
+ #       command: /usr/local/patronictl -c /etc/patroni/config.yml remove {{ patroni_cluster_name}}
+ #       responses:
+ #         'Please confirm the cluster name to remove' : "{{ patroni_cluster_name}}"
+ #         'You are about to remove all information in DCS for sql-gitlab, please type: "Yes I am aware"' : "Yes I am aware"
+ #     when: patroni_master.json.role == "master"
+      
       # patronictl -c /etc/patroni/config.yml remove batman
       # change datadir in /etc/patroni/config.yml 
       # systemctl start patroni
