@@ -37,6 +37,7 @@
     body_format: json
     status_code: [200, 503]
   register: output
+  check_mode: no
 
 - name: Cluster check results
   debug:
