@@ -24,10 +24,28 @@
   tags: 6_startdb
   when: postgresql_service != "patroni"
 
+- name: Check patroni api responce
+  # This task is essential to determine current master
+  # and run powa tasks on him instead of entire cluster
+  uri:
+    url: http://localhost:8008
+    body_format: json
+    status_code: [200, 503]
+  register: get_master
+  check_mode: no
+
+#- name: Get Master server.
+  # This task is essential to determine current master
+  # and run powa tasks on him instead of entire cluster
+#  postgresql_query:
+#    query: SELECT pg_is_in_recovery();
+#  register: output
+#  check_mode: no
+
 - import_tasks: powa.yml
   tags: powa
   when: postgresql_service != "patroni" or
-    (output.json.role == "master" and postgresql_service == "patroni")
+    (get_master.json.role == "master" and postgresql_service == "patroni")
 
 - import_tasks: repmgr.yml
   tags: repmgr
