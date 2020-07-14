@@ -33,6 +33,7 @@
     status_code: [200, 503]
   register: get_master
   check_mode: no
+  when: postgresql_service == "patroni" 
 
 #- name: Get Master server.
   # This task is essential to determine current master
